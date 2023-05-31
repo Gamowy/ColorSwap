@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include "ColorSwap.h"
 
 int main()
 {
