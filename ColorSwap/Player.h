@@ -8,7 +8,7 @@ class Player
 private:
 	CircleShape ball;
 	Vector2f ballSpeed;
-
+	bool canJump;
 	//Private functions
 	void move();
 
