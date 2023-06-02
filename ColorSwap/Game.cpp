@@ -68,6 +68,7 @@ void Game::render()
 {
 	window->clear(Color(44, 50, 66));
 	//Render game here
+	window->setView(player->getView());
 	player->render(window);
 
 	window->display();

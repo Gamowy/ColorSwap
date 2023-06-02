@@ -8,12 +8,18 @@ void Player::move()
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
+		std::cout << "Player position x:" << ball.getPosition().x << ", y:" << ball.getPosition().y << std::endl;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Space) == false)
 	{
 		canJump = true;
 	}
 	ball.move(ballSpeed);
+
+	if (ball.getPosition().y <= view.getCenter().y + 0.3f * WINDOW_HEIGHT)
+	{
+		view.move(ballSpeed);
+	}
 }
 
 Player::Player()
@@ -24,6 +30,8 @@ Player::Player()
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
 	canJump = true;
+	view.setCenter(ball.getPosition().x, ball.getPosition().y - 0.3f * WINDOW_HEIGHT);
+	view.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 Player::~Player()
@@ -38,4 +46,9 @@ void Player::update()
 void Player::render(RenderTarget* target)
 {
 	target->draw(ball);
+}
+
+View Player::getView()
+{
+	return view;
 }

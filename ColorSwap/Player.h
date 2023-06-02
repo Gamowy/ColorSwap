@@ -9,6 +9,7 @@ private:
 	CircleShape ball;
 	Vector2f ballSpeed;
 	bool canJump;
+	View view;
 	//Private functions
 	void move();
 
@@ -18,5 +19,6 @@ public:
 
 	void update();
 	void render(RenderTarget* target);
+	View getView();
 };
 
