@@ -40,6 +40,23 @@ void Game::pollEvents()
 	}
 }
 
+void Game::moveView()
+{
+	if (player->getPlayerPosition().y <= view->getCenter().y + 0.3f * WINDOW_HEIGHT)
+	{
+		view->move(player->getPlayerSpeed());
+	}
+}
+
+void Game::checkFallCondition()
+{
+	if (player->getPlayerPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT)
+	{
+		std::cout << "Game over\n";
+		gameStatus = GameState::GameOver;
+	}
+}
+
 Game::Game()
 {
 	initVariables();
@@ -64,10 +81,8 @@ void Game::update()
 	switch (gameStatus) {
 		case GameState::Play:
 			player->update();
-			if (player->getPlayerPosition().y <= view->getCenter().y + 0.3f * WINDOW_HEIGHT)
-			{
-				view->move(player->getPlayerSpeed());
-			}
+			moveView();
+			checkFallCondition();
 			break;
 	}
 }
