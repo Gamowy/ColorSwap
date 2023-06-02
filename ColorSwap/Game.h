@@ -13,6 +13,7 @@ private:
 	RenderWindow* window;
 	VideoMode videoMode;
 	Image windowIcon;
+	View* view;
 
 	//Game variables
 	Event event;

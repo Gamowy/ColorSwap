@@ -16,22 +16,17 @@ void Player::move()
 	}
 	ball.move(ballSpeed);
 
-	if (ball.getPosition().y <= view.getCenter().y + 0.3f * WINDOW_HEIGHT)
-	{
-		view.move(ballSpeed);
-	}
 }
 
 Player::Player()
 {
-	ball.setRadius(10.f);
+	ball.setRadius(12.5f);
 	ball.setFillColor(Color::White);
 	ball.setPosition(Vector2f(WINDOW_WIDTH/2.f - ball.getRadius(), 0.875f * WINDOW_HEIGHT));
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
+	ball.setOrigin(ball.getRadius(), ball.getRadius());
 	canJump = true;
-	view.setCenter(ball.getPosition().x, ball.getPosition().y - 0.3f * WINDOW_HEIGHT);
-	view.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 Player::~Player()
@@ -48,7 +43,12 @@ void Player::render(RenderTarget* target)
 	target->draw(ball);
 }
 
-View Player::getView()
+Vector2f Player::getPlayerPosition()
 {
-	return view;
+	return ball.getPosition();
+}
+
+Vector2f Player::getPlayerSpeed()
+{
+	return ballSpeed;
 }
