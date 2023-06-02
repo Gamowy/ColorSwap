@@ -1,7 +1,10 @@
 #pragma once
 #include "ColorSwap.h"
+#include "Player.h"
 
 using namespace sf;
+
+enum GameState {Menu, Play, GameOver, Error};
 
 class Game
 {
@@ -13,6 +16,8 @@ private:
 
 	//Game variables
 	Event event;
+	GameState gameStatus;
+	Player* player;
 
 	//Private methods
 	void initVariables();

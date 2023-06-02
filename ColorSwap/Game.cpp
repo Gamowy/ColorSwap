@@ -3,7 +3,9 @@
 
 void Game::initVariables()
 {
+	gameStatus = GameState::Menu;
 	window = nullptr;
+	player = new Player();
 }
 
 void Game::initWindow()
@@ -28,6 +30,8 @@ void Game::pollEvents()
 		case Event::KeyPressed:
 			if (event.key.code == Keyboard::Escape)
 				window->close();
+			if (gameStatus == GameState::Menu && event.key.code == Keyboard::Space)
+				gameStatus = GameState::Play;
 			break;
 		}		
 	}
@@ -42,6 +46,7 @@ Game::Game()
 Game::~Game()
 {
 	delete window;
+	delete player;
 }
 
 const bool Game::running() const
@@ -52,12 +57,18 @@ const bool Game::running() const
 void Game::update()
 {
 	pollEvents();
+	switch (gameStatus) {
+		case GameState::Play:
+			player->update();
+			break;
+	}
 }
 
 void Game::render()
 {
 	window->clear(Color(44, 50, 66));
 	//Render game here
+	player->render(window);
 
 	window->display();
 }
