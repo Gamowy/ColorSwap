@@ -10,10 +10,10 @@ private:
 	Texture itemTexture;
 
 public:
-	Item();
+	Item(Vector2f position);
 	virtual ~Item();
 
 	void update();
-	void render();
+	void render(RenderTarget* target);
 };
 

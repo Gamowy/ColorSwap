@@ -7,6 +7,7 @@ void Game::initVariables()
 	window = nullptr;
 	player = new Player();
 	view = new View();
+	points.push_back(Item(Vector2f(200.f, 200.f)));
 }
 
 void Game::initWindow()
@@ -57,6 +58,14 @@ void Game::checkFallCondition()
 	}
 }
 
+void Game::renderPoints(RenderTarget* target)
+{
+	for (int i = 0; i < points.size(); i++)
+	{
+		points.at(i).render(target);
+	}
+}
+
 Game::Game()
 {
 	initVariables();
@@ -85,6 +94,8 @@ void Game::update()
 			checkFallCondition();
 			break;
 	}
+
+	
 }
 
 void Game::render()
@@ -93,6 +104,7 @@ void Game::render()
 	//Render game here
 	window->setView(*view);
 	player->render(window);
+	renderPoints(window);
 
 	window->display();
 }

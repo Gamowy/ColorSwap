@@ -1,6 +1,7 @@
 #pragma once
 #include "ColorSwap.h"
 #include "Player.h"
+#include "Item.h"
 
 using namespace sf;
 
@@ -19,6 +20,7 @@ private:
 	Event event;
 	GameState gameStatus;
 	Player* player;
+	std::vector<Item> points;
 
 	//Private methods
 	void initVariables();
@@ -26,6 +28,7 @@ private:
 	void pollEvents();
 	void moveView();
 	void checkFallCondition();
+	void renderPoints(RenderTarget* target);
 
 public:
 	Game();
