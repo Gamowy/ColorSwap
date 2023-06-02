@@ -1,1 +1,7 @@
 .vs/
+x64/
+ColorSwap/x64/
+ColorSwap/ColorSwap.aps
+ColorSwap/ColorSwitch.vcxproj
+ColorSwap/ColorSwitch.vcxproj.filters
+ColorSwap/ColorSwitch.vcxproj.user
