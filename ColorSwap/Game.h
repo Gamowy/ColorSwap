@@ -24,6 +24,8 @@ private:
 	void initVariables();
 	void initWindow();
 	void pollEvents();
+	void moveView();
+	void checkFallCondition();
 
 public:
 	Game();
