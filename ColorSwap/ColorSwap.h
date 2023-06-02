@@ -13,3 +13,6 @@
 const int FRAME_RATE = 60;
 const int WINDOW_WIDTH = 600; //px
 const int WINDOW_HEIGHT = 800; //px;
+
+const float GRAVITY = 0.5f;
+const float JUMP_HEIGHT = -5.f;
