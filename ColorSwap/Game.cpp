@@ -9,7 +9,6 @@ void Game::initVariables()
 	view = new View();
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
-	testObstacle = new Obstacle(99700.f, starTexture, colorSwitchTexture);
 }
 
 void Game::initWindow()
@@ -63,7 +62,7 @@ void Game::moveView()
 
 void Game::checkColisions()
 {
-	testObstacle->checkColisions(player->getBounds());
+	
 }
 
 void Game::checkOutOfMapCondition()

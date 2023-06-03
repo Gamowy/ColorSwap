@@ -19,7 +19,6 @@ private:
 	Event event;
 	GameState gameStatus;
 	Player* player;
-	Obstacle* testObstacle;
 
 	//Files to load
 	Image windowIcon;

@@ -14,7 +14,9 @@ public:
 	Obstacle(float yPosition, Texture& starTexture, Texture& colorSwitchTexture);
 	virtual ~Obstacle();
 
-	void checkColisions(FloatRect PlayerBounds);
+	bool checkStarColision(FloatRect playerBounds);
+	bool checkSwitchColisio(FloatRect playerBounds);
+	virtual bool checkObstacleColision(FloatRect playerBounds);
 	void update();
 	void render(RenderTarget* target);
 };
