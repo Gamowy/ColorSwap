@@ -26,7 +26,7 @@ private:
 	void initWindow();
 	void pollEvents();
 	void moveView();
-	void checkFallCondition();
+	void checkOutOfMapCondition();
 
 public:
 	Game();

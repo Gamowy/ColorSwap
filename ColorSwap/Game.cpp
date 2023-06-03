@@ -51,10 +51,10 @@ void Game::moveView()
 	}
 }
 
-void Game::checkFallCondition()
+void Game::checkOutOfMapCondition()
 {
 	//Check if player is out of bounds
-	if (player->getPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT)
+	if (player->getPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT || (player->getPosition().y < -100000.f))
 	{
 		std::cout << "Game over\n";
 		gameStatus = GameState::GameOver;
@@ -86,7 +86,7 @@ void Game::update()
 		case GameState::Play:
 			player->update();
 			moveView();
-			checkFallCondition();
+			checkOutOfMapCondition();
 			break;
 	}
 }

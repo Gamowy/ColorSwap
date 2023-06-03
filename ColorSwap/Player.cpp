@@ -22,7 +22,7 @@ Player::Player()
 {
 	ball.setRadius(12.5f);
 	ball.setFillColor(Color::White);
-	ball.setPosition(Vector2f(WINDOW_WIDTH/2.f - ball.getRadius(), 30000.f));
+	ball.setPosition(Vector2f(WINDOW_WIDTH/2.f - ball.getRadius(), 100000.f));
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
 	ball.setOrigin(ball.getRadius(), ball.getRadius());
