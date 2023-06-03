@@ -9,6 +9,7 @@ void Game::initVariables()
 	view = new View();
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
+	obstacles.push_back(Obstacle(99500.f, starTexture, colorSwitchTexture));
 }
 
 void Game::initWindow()
@@ -62,7 +63,24 @@ void Game::moveView()
 
 void Game::checkColisions()
 {
-	
+	for (int i = 0; i < obstacles.size(); i++) 
+	{
+		if (obstacles.at(i).checkObstacleColision(player->getBounds()))
+		{
+			std::cout << "Game over\n";
+			gameStatus = GameState::GameOver;
+		}
+
+		if (obstacles.at(i).checkStarColision(player->getBounds()))
+		{
+			std::cout << "Star!\n";
+		}
+
+		if (obstacles.at(i).checkSwitchColision(player->getBounds()))
+		{
+			std::cout << "Switch!\n";
+		}
+	}
 }
 
 void Game::checkOutOfMapCondition()
@@ -107,13 +125,21 @@ void Game::update()
 	}
 }
 
+void Game::renderObstacles()
+{
+	for (int i = 0; i < obstacles.size(); i++)
+	{
+		obstacles.at(i).render(window);
+	}
+}
+
 void Game::render()
 {
 	window->clear(Color(44, 50, 66));
 	//Render game here
 	window->setView(*view);
 	player->render(window);
-	testObstacle->render(window);
+	renderObstacles();
 
 	window->display();
 }

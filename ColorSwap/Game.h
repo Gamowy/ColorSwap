@@ -19,6 +19,7 @@ private:
 	Event event;
 	GameState gameStatus;
 	Player* player;
+	std::vector<Obstacle> obstacles;
 
 	//Files to load
 	Image windowIcon;
@@ -33,6 +34,7 @@ private:
 	void moveView();
 	void checkColisions();
 	void checkOutOfMapCondition();
+	void renderObstacles();
 
 public:
 	Game();

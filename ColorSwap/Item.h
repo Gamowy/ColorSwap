@@ -9,9 +9,10 @@ private:
 	Sprite item;
 
 public:
-	Item(float yPosition, Texture& texture);
+	Item();
 	virtual ~Item();
 
+	void initItem(float yPosition, Texture& texture);
 	FloatRect getBounds();
 	void update();
 	void render(RenderTarget* target);
