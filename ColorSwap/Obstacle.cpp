@@ -9,12 +9,16 @@ Obstacle::Obstacle(float yPosition, Texture& starTexture, Texture& colorSwitchTe
 
 Obstacle::~Obstacle()
 {
+	delete star;
+	delete colorSwitch;
 }  
 
 bool Obstacle::checkStarColision(FloatRect playerBounds)
 {
-	if (playerBounds.intersects(star->getBounds())) 
+	if (star != nullptr && playerBounds.intersects(star->getBounds())) 
 	{
+		delete star;
+		star = nullptr;
 		return true;
 	}
 	return false;
@@ -22,8 +26,10 @@ bool Obstacle::checkStarColision(FloatRect playerBounds)
 
 bool Obstacle::checkSwitchColision(FloatRect playerBounds)
 {
-	if (playerBounds.intersects(colorSwitch->getBounds())) 
+	if (colorSwitch != nullptr && playerBounds.intersects(colorSwitch->getBounds())) 
 	{
+		delete colorSwitch;
+		colorSwitch = nullptr;
 		return true;
 	}
 	return false;
@@ -41,6 +47,12 @@ void Obstacle::update()
 
 void Obstacle::render(RenderTarget* target)
 {
-	star->render(target);
-	colorSwitch->render(target);
+	if (star != nullptr) 
+	{
+		star->render(target);
+	}
+	if (colorSwitch != nullptr)
+	{
+		colorSwitch->render(target);
+	}
 }
