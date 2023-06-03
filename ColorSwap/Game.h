@@ -16,10 +16,11 @@ private:
 	View* view;
 
 	//Game variables
+	unsigned int points;
 	Event event;
 	GameState gameStatus;
 	Player* player;
-	std::vector<Obstacle> obstacles;
+	std::vector<Obstacle*> obstacles;
 
 	//Files to load
 	Image windowIcon;

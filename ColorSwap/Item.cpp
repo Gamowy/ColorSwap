@@ -1,20 +1,16 @@
 #include "ColorSwap.h"
 #include "Item.h"
 
-Item::Item()
+Item::Item(float yPosition, Texture& texture)
 {
+	item.setTexture(texture);
 	item.setScale(0.9f, 0.9f);
+	item.setPosition(WINDOW_WIDTH / 2 - 30.f, yPosition);
 }
 
 Item::~Item()
 {
 
-}
-
-void Item::initItem(float yPosition, Texture& texture)
-{
-	item.setTexture(texture);
-	item.setPosition(WINDOW_WIDTH / 2 - 30.f, yPosition);
 }
 
 FloatRect Item::getBounds()

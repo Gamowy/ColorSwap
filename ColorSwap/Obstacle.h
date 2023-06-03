@@ -7,8 +7,8 @@ using namespace sf;
 class Obstacle
 {
 private:
-	Item star;
-	Item colorSwitch;
+	Item* star;
+	Item* colorSwitch;
 
 public:
 	Obstacle(float yPosition, Texture& starTexture, Texture& colorSwitchTexture);
