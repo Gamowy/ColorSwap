@@ -7,6 +7,8 @@ void Game::initVariables()
 	window = nullptr;
 	player = new Player();
 	view = new View();
+	starTexture.setSmooth(true);
+	colorSwitchTexture.setSmooth(true);
 	testObstacle = new Obstacle(Vector2f(400.f, 99950.f), starTexture, colorSwitchTexture);
 }
 
@@ -53,7 +55,7 @@ void Game::pollEvents()
 void Game::moveView()
 {
 	//Move view up when player moves up
-	if (player->getPosition().y <= view->getCenter().y + 0.3f * WINDOW_HEIGHT)
+	if (player->getPosition().y <= view->getCenter().y + 0.1f * WINDOW_HEIGHT)
 	{
 		view->move(player->getSpeed());
 	}
