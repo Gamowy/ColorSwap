@@ -3,6 +3,7 @@
 
 Obstacle::Obstacle(float yPosition, Texture& starTexture, Texture& colorSwitchTexture)
 {
+	this->yPosition = yPosition;
 	star = new Item(yPosition, starTexture);
 	colorSwitch = new Item(yPosition - 100.f, colorSwitchTexture);
 }
@@ -12,6 +13,11 @@ Obstacle::~Obstacle()
 	delete star;
 	delete colorSwitch;
 }  
+
+float Obstacle::getYPosition()
+{
+	return yPosition;
+}
 
 bool Obstacle::checkStarColision(FloatRect playerBounds)
 {

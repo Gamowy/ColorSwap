@@ -34,6 +34,8 @@ private:
 	void pollEvents();
 	void moveView();
 	void checkColisions();
+	void createObstacles();
+	void removeObstacles();
 	void checkOutOfMapCondition();
 	void renderObstacles();
 

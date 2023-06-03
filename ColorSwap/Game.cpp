@@ -85,6 +85,26 @@ void Game::checkColisions()
 	}
 }
 
+void Game::createObstacles()
+{
+	//Tutaj bedziemy automatycznie tworzyc przeszkody kiedy widok bedzie sie przesuwal
+	//To zrobimy dopiero jak beda juz stworzone wszystkie rodzaje przeszkod
+	//Narazie przeszkody dodajemy recznie w metodzie initVariables();
+}
+
+
+void Game::removeObstacles()
+{
+	//remove obstacles that are out of view
+	for (int i = 0; i < obstacles.size(); i++) 
+	{
+		if (obstacles.at(i)->getYPosition() > view->getCenter().y + 0.6f * WINDOW_HEIGHT)
+		{
+			obstacles.erase(obstacles.begin() + i);
+		}
+	}
+}
+
 void Game::checkOutOfMapCondition()
 {
 	//Check if player is out of bounds
@@ -123,6 +143,8 @@ void Game::update()
 			moveView();
 			checkColisions();
 			checkOutOfMapCondition();
+			createObstacles();
+			removeObstacles();
 			break;
 	}
 }
