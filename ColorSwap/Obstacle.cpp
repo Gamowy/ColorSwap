@@ -9,6 +9,8 @@ Obstacle::Obstacle(Vector2f position, Texture starTexture, Texture colorSwitchTe
 
 Obstacle::~Obstacle()
 {
+	delete star;
+	delete colorSwitch;
 }
 
 void Obstacle::update()

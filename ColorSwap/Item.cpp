@@ -4,7 +4,6 @@
 Item::Item(Vector2f position, Texture& texture)
 {
 	item.setTexture(texture);
-	item.setScale(Vector2f(0.1f, 0.1f));
 	item.setPosition(position);
 }
 
