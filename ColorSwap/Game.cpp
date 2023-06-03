@@ -61,6 +61,11 @@ void Game::moveView()
 	}
 }
 
+void Game::checkColisions()
+{
+	testObstacle->checkColisions(player->getBounds());
+}
+
 void Game::checkOutOfMapCondition()
 {
 	//Check if player is out of bounds
@@ -97,6 +102,7 @@ void Game::update()
 		case GameState::Play:
 			player->update();
 			moveView();
+			checkColisions();
 			checkOutOfMapCondition();
 			break;
 	}

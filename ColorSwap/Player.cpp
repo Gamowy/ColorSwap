@@ -44,6 +44,11 @@ Vector2f Player::getSpeed()
 	return ballSpeed;
 }
 
+FloatRect Player::getBounds()
+{
+	return ball.getGlobalBounds();
+}
+
 void Player::update()
 {
 	move();

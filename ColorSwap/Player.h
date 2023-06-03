@@ -18,9 +18,10 @@ public:
 	Player();
 	virtual ~Player();
 
-	void update();
-	void render(RenderTarget* target);
 	Vector2f getPosition();
 	Vector2f getSpeed();
+	FloatRect getBounds();
+	void update();
+	void render(RenderTarget* target);
 };
 

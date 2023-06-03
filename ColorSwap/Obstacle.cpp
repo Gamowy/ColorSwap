@@ -13,6 +13,18 @@ Obstacle::~Obstacle()
 	delete colorSwitch;
 }
 
+void Obstacle::checkColisions(FloatRect playerBounds)
+{
+	//Colision with star
+	if (playerBounds.intersects(star->getBounds())) {
+		std::cout << "Punkt\n";
+	}
+	//Colision with color switch
+	if (playerBounds.intersects(colorSwitch->getBounds())) {
+		std::cout << "Color switch\n";
+	}
+}
+
 void Obstacle::update()
 {
 }

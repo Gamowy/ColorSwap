@@ -32,6 +32,7 @@ private:
 	void loadFiles();
 	void pollEvents();
 	void moveView();
+	void checkColisions();
 	void checkOutOfMapCondition();
 
 public:
