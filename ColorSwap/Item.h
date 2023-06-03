@@ -12,6 +12,7 @@ public:
 	Item(float yPosition, Texture& texture);
 	virtual ~Item();
 
+	FloatRect getBounds();
 	void update();
 	void render(RenderTarget* target);
 };

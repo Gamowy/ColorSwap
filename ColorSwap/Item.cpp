@@ -13,6 +13,11 @@ Item::~Item()
 
 }
 
+FloatRect Item::getBounds()
+{
+	return item.getGlobalBounds();
+}
+
 void Item::update()
 {
 
