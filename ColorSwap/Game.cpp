@@ -7,13 +7,14 @@ void Game::initVariables()
 	window = nullptr;
 	player = new Player();
 	view = new View();
+	testObstacle = new Obstacle(Vector2f(400.f, 99950.f), starTexture, colorSwitchTexture);
 }
 
 void Game::initWindow()
 {
+	//Create window
 	videoMode.width = WINDOW_WIDTH;
 	videoMode.height = WINDOW_HEIGHT;
-	
 	window = new RenderWindow(VideoMode(this->videoMode), "Color Swap", Style::Titlebar | Style::Close);
 	window->setIcon(this->windowIcon.getSize().x, this->windowIcon.getSize().y, this->windowIcon.getPixelsPtr());
 	window->setFramerateLimit(FRAME_RATE);
@@ -105,6 +106,7 @@ void Game::render()
 	//Render game here
 	window->setView(*view);
 	player->render(window);
+	testObstacle->render(window);
 
 	window->display();
 }

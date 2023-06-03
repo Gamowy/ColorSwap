@@ -11,7 +11,7 @@ private:
 	Item* colorSwitch;
 
 public:
-	Obstacle(Vector2f position, Texture starTexture, Texture colorSwitchTexture);
+	Obstacle(Vector2f position, Texture& starTexture, Texture& colorSwitchTexture);
 	virtual ~Obstacle();
 
 	void update();

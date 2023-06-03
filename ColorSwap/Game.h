@@ -1,7 +1,7 @@
 #pragma once
 #include "ColorSwap.h"
 #include "Player.h"
-#include "Item.h"
+#include "Obstacle.h"
 
 using namespace sf;
 
@@ -19,6 +19,7 @@ private:
 	Event event;
 	GameState gameStatus;
 	Player* player;
+	Obstacle* testObstacle;
 
 	//Files to load
 	Image windowIcon;
