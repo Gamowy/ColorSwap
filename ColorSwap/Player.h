@@ -7,6 +7,7 @@ class Player
 {
 private:
 	CircleShape ball;
+	Color ballColor;
 	Vector2f ballSpeed;
 	bool canJump;
 

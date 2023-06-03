@@ -7,6 +7,8 @@ void Game::initVariables()
 	window = nullptr;
 	player = new Player();
 	view = new View();
+
+
 }
 
 void Game::initWindow()
