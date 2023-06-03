@@ -9,7 +9,8 @@ private:
 	CircleShape ball;
 	Vector2f ballSpeed;
 	bool canJump;
-	//Private functions
+
+	//Private methods
 	void move();
 
 public:
@@ -18,7 +19,7 @@ public:
 
 	void update();
 	void render(RenderTarget* target);
-	Vector2f getPlayerPosition();
-	Vector2f getPlayerSpeed();
+	Vector2f getPosition();
+	Vector2f getSpeed();
 };
 

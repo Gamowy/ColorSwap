@@ -7,10 +7,9 @@ class Item
 {
 private:
 	Sprite item;
-	Texture itemTexture;
 
 public:
-	Item(Vector2f position);
+	Item(Vector2f position, Texture& texture);
 	virtual ~Item();
 
 	void update();

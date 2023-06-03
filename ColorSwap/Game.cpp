@@ -7,7 +7,6 @@ void Game::initVariables()
 	window = nullptr;
 	player = new Player();
 	view = new View();
-	points.push_back(Item(Vector2f(200.f, 200.f)));
 }
 
 void Game::initWindow()
@@ -18,7 +17,9 @@ void Game::initWindow()
 	window = new RenderWindow(VideoMode(this->videoMode), "Color Swap", Style::Titlebar | Style::Close);
 	window->setIcon(this->windowIcon.getSize().x, this->windowIcon.getSize().y, this->windowIcon.getPixelsPtr());
 	window->setFramerateLimit(FRAME_RATE);
-	view->setCenter(player->getPlayerPosition().x, player->getPlayerPosition().y - 0.3f * WINDOW_HEIGHT);
+	
+	//Create a view and center it on player
+	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
@@ -43,26 +44,20 @@ void Game::pollEvents()
 
 void Game::moveView()
 {
-	if (player->getPlayerPosition().y <= view->getCenter().y + 0.3f * WINDOW_HEIGHT)
+	//Move view up when player moves up
+	if (player->getPosition().y <= view->getCenter().y + 0.3f * WINDOW_HEIGHT)
 	{
-		view->move(player->getPlayerSpeed());
+		view->move(player->getSpeed());
 	}
 }
 
 void Game::checkFallCondition()
 {
-	if (player->getPlayerPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT)
+	//Check if player is out of bounds
+	if (player->getPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT)
 	{
 		std::cout << "Game over\n";
 		gameStatus = GameState::GameOver;
-	}
-}
-
-void Game::renderPoints(RenderTarget* target)
-{
-	for (int i = 0; i < points.size(); i++)
-	{
-		points.at(i).render(target);
 	}
 }
 
@@ -94,8 +89,6 @@ void Game::update()
 			checkFallCondition();
 			break;
 	}
-
-	
 }
 
 void Game::render()
@@ -104,7 +97,6 @@ void Game::render()
 	//Render game here
 	window->setView(*view);
 	player->render(window);
-	renderPoints(window);
 
 	window->display();
 }

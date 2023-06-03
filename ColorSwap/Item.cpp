@@ -1,11 +1,10 @@
 #include "ColorSwap.h"
 #include "Item.h"
 
-Item::Item(Vector2f position)
+Item::Item(Vector2f position, Texture& texture)
 {
-	itemTexture.loadFromFile("Assets/Images/star.png");
-	item.setTexture(itemTexture);
-	item.setScale(Vector2f(0.10f, 0.10f));
+	item.setTexture(texture);
+	item.setScale(Vector2f(0.1f, 0.1f));
 	item.setPosition(position);
 }
 
