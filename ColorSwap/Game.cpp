@@ -7,15 +7,13 @@ void Game::initVariables()
 	window = nullptr;
 	player = new Player();
 	view = new View();
-
-
 }
 
 void Game::initWindow()
 {
 	videoMode.width = WINDOW_WIDTH;
 	videoMode.height = WINDOW_HEIGHT;
-	windowIcon.loadFromFile("Assets/Images/icon.png");
+	
 	window = new RenderWindow(VideoMode(this->videoMode), "Color Swap", Style::Titlebar | Style::Close);
 	window->setIcon(this->windowIcon.getSize().x, this->windowIcon.getSize().y, this->windowIcon.getPixelsPtr());
 	window->setFramerateLimit(FRAME_RATE);
@@ -23,6 +21,13 @@ void Game::initWindow()
 	//Create a view and center it on player
 	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+}
+
+void Game::loadFiles()
+{
+	windowIcon.loadFromFile("Assets/Images/icon.png");
+	starTexture.loadFromFile("Assets/Images/star.png");
+	colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png");
 }
 
 void Game::pollEvents()
@@ -65,6 +70,7 @@ void Game::checkOutOfMapCondition()
 
 Game::Game()
 {
+	loadFiles();
 	initVariables();
 	initWindow();
 }

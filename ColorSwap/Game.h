@@ -13,7 +13,6 @@ private:
 	//Window variables
 	RenderWindow* window;
 	VideoMode videoMode;
-	Image windowIcon;
 	View* view;
 
 	//Game variables
@@ -21,9 +20,15 @@ private:
 	GameState gameStatus;
 	Player* player;
 
+	//Files to load
+	Image windowIcon;
+	Texture starTexture;
+	Texture colorSwitchTexture;
+
 	//Private methods
 	void initVariables();
 	void initWindow();
+	void loadFiles();
 	void pollEvents();
 	void moveView();
 	void checkOutOfMapCondition();
