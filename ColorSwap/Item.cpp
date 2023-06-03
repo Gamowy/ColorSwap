@@ -3,7 +3,7 @@
 
 Item::Item()
 {
-	item.setScale(Vector2f(0.9f, 0.9f));
+	item.setScale(0.9f, 0.9f);
 }
 
 Item::~Item()
@@ -14,7 +14,7 @@ Item::~Item()
 void Item::initItem(float yPosition, Texture& texture)
 {
 	item.setTexture(texture);
-	item.setPosition(Vector2f(WINDOW_WIDTH / 2 - 30.f, yPosition));
+	item.setPosition(WINDOW_WIDTH / 2 - 30.f, yPosition);
 }
 
 FloatRect Item::getBounds()
