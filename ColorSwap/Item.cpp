@@ -1,11 +1,11 @@
 #include "ColorSwap.h"
 #include "Item.h"
 
-Item::Item(Vector2f position, Texture& texture)
+Item::Item(float yPosition, Texture& texture)
 {
 	item.setTexture(texture);
 	item.setScale(Vector2f(0.9f, 0.9f));
-	item.setPosition(position);
+	item.setPosition(Vector2f(WINDOW_WIDTH / 2 - 30.f, yPosition));
 }
 
 Item::~Item()

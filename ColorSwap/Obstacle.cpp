@@ -1,10 +1,10 @@
 #include "ColorSwap.h"
 #include "Obstacle.h"
 
-Obstacle::Obstacle(Vector2f position, Texture& starTexture, Texture& colorSwitchTexture)
+Obstacle::Obstacle(float yPosition, Texture& starTexture, Texture& colorSwitchTexture)
 {
-	star = new Item(position, starTexture);
-	colorSwitch = new Item(Vector2f(position.x, position.y - 100.f), colorSwitchTexture);
+	star = new Item(yPosition, starTexture);
+	colorSwitch = new Item(yPosition - 100.f, colorSwitchTexture);
 }
 
 Obstacle::~Obstacle()

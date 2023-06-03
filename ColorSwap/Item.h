@@ -9,7 +9,7 @@ private:
 	Sprite item;
 
 public:
-	Item(Vector2f position, Texture& texture);
+	Item(float yPosition, Texture& texture);
 	virtual ~Item();
 
 	void update();

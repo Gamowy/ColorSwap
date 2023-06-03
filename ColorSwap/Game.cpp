@@ -9,7 +9,7 @@ void Game::initVariables()
 	view = new View();
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
-	testObstacle = new Obstacle(Vector2f(400.f, 99950.f), starTexture, colorSwitchTexture);
+	testObstacle = new Obstacle(99700.f, starTexture, colorSwitchTexture);
 }
 
 void Game::initWindow()
@@ -50,7 +50,7 @@ void Game::pollEvents()
 			break;
 		}		
 	}
-}
+}	
 
 void Game::moveView()
 {
