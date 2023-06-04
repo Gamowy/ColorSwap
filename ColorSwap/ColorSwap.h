@@ -17,7 +17,7 @@ const int WINDOW_HEIGHT = 800; //px;
 const float GRAVITY = 0.5f;
 const float JUMP_HEIGHT = -5.f;
 
-const sf::Color COLOR_SWAP_CYAN(31, 77, 82);
-const sf::Color COLOR_SWAP_PURPLE(49, 7, 82);
-const sf::Color COLOR_SWAP_YELLOW(87, 76, 20);
-const sf::Color COLOR_SWAP_RED(94, 5, 27);
+const sf::Color COLOR_SWAP_CYAN(79, 196, 209);
+const sf::Color COLOR_SWAP_PURPLE(125, 18, 209);
+const sf::Color COLOR_SWAP_YELLOW(222, 194, 51);
+const sf::Color COLOR_SWAP_RED(240, 14, 76);
