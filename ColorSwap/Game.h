@@ -2,6 +2,7 @@
 #include "ColorSwap.h"
 #include "Player.h"
 #include "Obstacle.h"
+#include"PointCounter.h"
 
 using namespace sf;
 
@@ -14,6 +15,7 @@ private:
 	RenderWindow* window;
 	VideoMode videoMode;
 	View* view;
+	PointCounter* pointCounter;
 
 	//Game variables
 	unsigned int points;
@@ -26,6 +28,7 @@ private:
 	Image windowIcon;
 	Texture starTexture;
 	Texture colorSwitchTexture;
+	Font font;
 
 	//Private methods
 	void initVariables();

@@ -149,6 +149,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PointCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorSwap.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PointCounter.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
