@@ -8,7 +8,7 @@ class PointCounter
 	Text message;
 public:
 	PointCounter(Font& font);
-	~PointCounter();
+	virtual ~PointCounter();
 	void update(Vector2f viewCenter, unsigned int score);
 	void render(RenderTarget* target);
 };
