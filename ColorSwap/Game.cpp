@@ -7,18 +7,31 @@ void Game::initVariables()
 	window = nullptr;
 	player = new Player();
 	view = new View();
+	points = 0;
+	starTexture.setSmooth(true);
+	colorSwitchTexture.setSmooth(true);
+	obstacles.push_back(new Obstacle(99500.f, starTexture, colorSwitchTexture));
 }
 
 void Game::initWindow()
 {
+	//Create window
 	videoMode.width = WINDOW_WIDTH;
 	videoMode.height = WINDOW_HEIGHT;
-	windowIcon.loadFromFile("Assets/Images/icon.png");
 	window = new RenderWindow(VideoMode(this->videoMode), "Color Swap", Style::Titlebar | Style::Close);
 	window->setIcon(this->windowIcon.getSize().x, this->windowIcon.getSize().y, this->windowIcon.getPixelsPtr());
 	window->setFramerateLimit(FRAME_RATE);
-	view->setCenter(player->getPlayerPosition().x, player->getPlayerPosition().y - 0.3f * WINDOW_HEIGHT);
+	
+	//Create a view and center it on player
+	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+}
+
+void Game::loadFiles()
+{
+	windowIcon.loadFromFile("Assets/Images/icon.png");
+	starTexture.loadFromFile("Assets/Images/star.png");
+	colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png");
 }
 
 void Game::pollEvents()
@@ -38,19 +51,64 @@ void Game::pollEvents()
 			break;
 		}		
 	}
-}
+}	
 
 void Game::moveView()
 {
-	if (player->getPlayerPosition().y <= view->getCenter().y + 0.3f * WINDOW_HEIGHT)
+	//Move view up when player moves up
+	if (player->getPosition().y <= view->getCenter().y + 0.1f * WINDOW_HEIGHT)
 	{
-		view->move(player->getPlayerSpeed());
+		view->move(player->getSpeed());
 	}
 }
 
-void Game::checkFallCondition()
+void Game::checkColisions()
 {
-	if (player->getPlayerPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT)
+	for (int i = 0; i < obstacles.size(); i++) 
+	{
+		if (obstacles.at(i)->checkObstacleColision(player->getBounds()))
+		{
+			std::cout << "Game over\n";
+			gameStatus = GameState::GameOver;
+		}
+
+		if (obstacles.at(i)->checkStarColision(player->getBounds()))
+		{
+			points++;
+			std::cout << "Star!\n";
+		}
+
+		if (obstacles.at(i)->checkSwitchColision(player->getBounds()))
+		{
+			std::cout << "Switch!\n";
+		}
+	}
+}
+
+void Game::createObstacles()
+{
+	//Tutaj bedziemy automatycznie tworzyc przeszkody kiedy widok bedzie sie przesuwal
+	//To zrobimy dopiero jak beda juz stworzone wszystkie rodzaje przeszkod
+	//Narazie przeszkody dodajemy recznie w metodzie initVariables();
+}
+
+
+void Game::removeObstacles()
+{
+	//remove obstacles that are out of view
+	for (int i = 0; i < obstacles.size(); i++) 
+	{
+		if (obstacles.at(i)->getYPosition() > view->getCenter().y + 0.6f * WINDOW_HEIGHT)
+		{
+			obstacles.erase(obstacles.begin() + i);
+		}
+	}
+}
+
+void Game::checkOutOfMapCondition()
+{
+	//Check if player is out of bounds
+	if (player->getPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT || (player->getPosition().y < -100000.f))
 	{
 		std::cout << "Game over\n";
 		gameStatus = GameState::GameOver;
@@ -59,6 +117,7 @@ void Game::checkFallCondition()
 
 Game::Game()
 {
+	loadFiles();
 	initVariables();
 	initWindow();
 }
@@ -82,8 +141,19 @@ void Game::update()
 		case GameState::Play:
 			player->update();
 			moveView();
-			checkFallCondition();
+			checkColisions();
+			checkOutOfMapCondition();
+			createObstacles();
+			removeObstacles();
 			break;
+	}
+}
+
+void Game::renderObstacles()
+{
+	for (int i = 0; i < obstacles.size(); i++)
+	{
+		obstacles.at(i)->render(window);
 	}
 }
 
@@ -93,6 +163,7 @@ void Game::render()
 	//Render game here
 	window->setView(*view);
 	player->render(window);
+	renderObstacles();
 
 	window->display();
 }

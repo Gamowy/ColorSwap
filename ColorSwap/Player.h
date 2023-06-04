@@ -7,18 +7,21 @@ class Player
 {
 private:
 	CircleShape ball;
+	Color ballColor;
 	Vector2f ballSpeed;
 	bool canJump;
-	//Private functions
+
+	//Private methods
 	void move();
 
 public:
 	Player();
 	virtual ~Player();
 
+	Vector2f getPosition();
+	Vector2f getSpeed();
+	FloatRect getBounds();
 	void update();
 	void render(RenderTarget* target);
-	Vector2f getPlayerPosition();
-	Vector2f getPlayerSpeed();
 };
 

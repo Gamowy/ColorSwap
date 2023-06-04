@@ -1,6 +1,7 @@
 #pragma once
 #include "ColorSwap.h"
 #include "Player.h"
+#include "Obstacle.h"
 
 using namespace sf;
 
@@ -12,20 +13,31 @@ private:
 	//Window variables
 	RenderWindow* window;
 	VideoMode videoMode;
-	Image windowIcon;
 	View* view;
 
 	//Game variables
+	unsigned int points;
 	Event event;
 	GameState gameStatus;
 	Player* player;
+	std::vector<Obstacle*> obstacles;
+
+	//Files to load
+	Image windowIcon;
+	Texture starTexture;
+	Texture colorSwitchTexture;
 
 	//Private methods
 	void initVariables();
 	void initWindow();
+	void loadFiles();
 	void pollEvents();
 	void moveView();
-	void checkFallCondition();
+	void checkColisions();
+	void createObstacles();
+	void removeObstacles();
+	void checkOutOfMapCondition();
+	void renderObstacles();
 
 public:
 	Game();
