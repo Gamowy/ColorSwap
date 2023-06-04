@@ -25,6 +25,8 @@ void Game::initWindow()
 	//Create a view and center it on player
 	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	pointCounter = new PointCounter(font);
 }
 
 void Game::loadFiles()
@@ -32,6 +34,7 @@ void Game::loadFiles()
 	windowIcon.loadFromFile("Assets/Images/icon.png");
 	starTexture.loadFromFile("Assets/Images/star.png");
 	colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png");
+	font.loadFromFile("Assets/Fonts/Exo-Regular.ttf");
 }
 
 void Game::pollEvents()
@@ -127,6 +130,7 @@ Game::~Game()
 	delete window;
 	delete player;
 	delete view;
+	delete pointCounter;
 }
 
 const bool Game::running() const
@@ -141,6 +145,7 @@ void Game::update()
 		case GameState::Play:
 			player->update();
 			moveView();
+			pointCounter->update(view->getCenter(), points);
 			checkColisions();
 			checkOutOfMapCondition();
 			createObstacles();
@@ -156,13 +161,14 @@ void Game::renderObstacles()
 		obstacles.at(i)->render(window);
 	}
 }
-
+  
 void Game::render()
 {
 	window->clear(Color(44, 50, 66));
 	//Render game here
 	window->setView(*view);
 	player->render(window);
+	pointCounter->render(window);
 	renderObstacles();
 
 	window->display();
