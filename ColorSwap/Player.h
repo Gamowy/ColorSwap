@@ -21,6 +21,7 @@ public:
 	Vector2f getPosition();
 	Vector2f getSpeed();
 	FloatRect getBounds();
+	Color getColor();
 	void update();
 	void render(RenderTarget* target);
 };

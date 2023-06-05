@@ -49,6 +49,11 @@ FloatRect Player::getBounds()
 	return ball.getGlobalBounds();
 }
 
+Color Player::getColor()
+{
+	return ball.getFillColor();
+}
+
 void Player::update()
 {
 	move();
