@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Obstacle.h"
 #include"PointCounter.h"
+#include "ObstacleWindmill.h"
 
 using namespace sf;
 
@@ -42,6 +43,7 @@ private:
 	void removeObstacles();
 	void checkOutOfMapCondition();
 	void renderObstacles();
+	void updateObstacles();
 
 public:
 	Game();
