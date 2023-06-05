@@ -47,7 +47,6 @@ void Game::initErrorWindow()
 
 void Game::loadFiles()
 {
-	int x = 5;
 	try {
 		if (!(
 			windowIcon.loadFromFile("Assets/Images/icon.png") &&
