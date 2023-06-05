@@ -50,7 +50,7 @@ void Game::loadFiles()
 {
 	try {
 		if (!(
-			windowIcon.loadFromFile("Assets/Images/icn.png") &&
+			windowIcon.loadFromFile("Assets/Images/icon.png") &&
 			starTexture.loadFromFile("Assets/Images/star.png") &&
 			colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png") &&
 			font.loadFromFile("Assets/Fonts/Exo-Regular.ttf")
