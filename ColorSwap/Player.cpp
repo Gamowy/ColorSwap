@@ -52,6 +52,12 @@ FloatRect Player::getBounds()
 	return ball.getGlobalBounds();
 }
 
+Color Player::getColor()
+{
+	return ball.getFillColor();
+
+}
+
 void Player::colorChange()
 {
 	//Pick random color
