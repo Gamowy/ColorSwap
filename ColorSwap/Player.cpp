@@ -55,7 +55,6 @@ FloatRect Player::getBounds()
 Color Player::getColor()
 {
 	return ball.getFillColor();
-
 }
 
 void Player::colorChange()
