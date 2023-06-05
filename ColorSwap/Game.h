@@ -33,7 +33,7 @@ private:
 	//Private methods
 	void initVariables();
 	void initWindow();
-	void initErrorWindow();
+	void initErrorWindow(std::exception e);
 	void loadFiles();
 	void pollEvents();
 	void moveView();
