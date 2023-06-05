@@ -21,8 +21,7 @@ void Player::move()
 Player::Player()
 {
 	ball.setRadius(12.5f);
-	ballColor = COLOR_SWAP_CYAN;
-	ball.setFillColor(ballColor);
+	ColorChange();
 	ball.setPosition(WINDOW_WIDTH/2.f - ball.getRadius(), 100000.f);
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
@@ -47,6 +46,42 @@ Vector2f Player::getSpeed()
 FloatRect Player::getBounds()
 {
 	return ball.getGlobalBounds();
+}
+
+void Player::ColorChange()
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distribution(0, 3);
+	int RandomNumber = distribution(gen);
+	switch (RandomNumber)
+	{
+	case 0:
+		if (ballColor != COLOR_SWAP_CYAN)
+			ballColor = COLOR_SWAP_CYAN;
+		else
+			ballColor = COLOR_SWAP_PURPLE;
+		break;
+	case 1:
+		if (ballColor != COLOR_SWAP_PURPLE)
+			ballColor = COLOR_SWAP_PURPLE;
+		else
+			ballColor = COLOR_SWAP_YELLOW;
+		break;
+	case 2:
+		if (ballColor != COLOR_SWAP_YELLOW)
+			ballColor = COLOR_SWAP_YELLOW;
+		else
+			ballColor = COLOR_SWAP_RED;
+		break;
+	case 3:
+		if (ballColor != COLOR_SWAP_RED)
+			ballColor = COLOR_SWAP_RED;
+		else
+			ballColor = COLOR_SWAP_CYAN;
+		break;
+	}
+	ball.setFillColor(ballColor);
 }
 
 void Player::update()
