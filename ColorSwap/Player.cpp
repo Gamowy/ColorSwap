@@ -21,8 +21,7 @@ void Player::move()
 Player::Player()
 {
 	ball.setRadius(12.5f);
-	ballColor = COLOR_SWAP_CYAN;
-	ball.setFillColor(ballColor);
+	ColorChange();
 	ball.setPosition(WINDOW_WIDTH/2.f - ball.getRadius(), 100000.f);
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
