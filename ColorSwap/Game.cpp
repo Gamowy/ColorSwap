@@ -31,7 +31,7 @@ void Game::initWindow()
 
 void Game::initErrorWindow(std::exception e)
 {
-
+	//Create error window
 	sf::RenderWindow window(sf::VideoMode(300, 0), e.what());
 	while (window.isOpen())
 	{
@@ -48,6 +48,7 @@ void Game::initErrorWindow(std::exception e)
 
 void Game::loadFiles()
 {
+	//Check if all the files loaded correctly
 	try {
 		if (!(
 			windowIcon.loadFromFile("Assets/Images/icon.png") &&
@@ -111,7 +112,7 @@ void Game::checkColisions()
 
 		if (obstacles.at(i)->checkSwitchColision(player->getBounds()))
 		{
-			player->ColorChange();
+			player->colorChange();
 		}
 	}
 }

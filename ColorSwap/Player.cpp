@@ -1,6 +1,10 @@
 #include "ColorSwap.h"
 #include "Player.h"
 
+std::random_device rd;
+std::mt19937 gen(rd());
+std::uniform_int_distribution<int> distribution(0, 3);
+
 void Player::move()
 {
 	ballSpeed.y += GRAVITY;
@@ -21,7 +25,7 @@ void Player::move()
 Player::Player()
 {
 	ball.setRadius(12.5f);
-	ColorChange();
+	colorChange();
 	ball.setPosition(WINDOW_WIDTH/2.f - ball.getRadius(), 100000.f);
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
@@ -48,11 +52,9 @@ FloatRect Player::getBounds()
 	return ball.getGlobalBounds();
 }
 
-void Player::ColorChange()
+void Player::colorChange()
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> distribution(0, 3);
+	//Pick random color
 	int RandomNumber = distribution(gen);
 	switch (RandomNumber)
 	{
