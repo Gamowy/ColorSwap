@@ -33,6 +33,7 @@ private:
 	//Private methods
 	void initVariables();
 	void initWindow();
+	void initErrorWindow();
 	void loadFiles();
 	void pollEvents();
 	void moveView();

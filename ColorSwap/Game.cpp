@@ -29,12 +29,40 @@ void Game::initWindow()
 	pointCounter = new PointCounter(font);
 }
 
+void Game::initErrorWindow()
+{
+	sf::RenderWindow window(sf::VideoMode(300, 0), "File loading error");
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		window.clear();
+		window.display();
+	}
+}
+
 void Game::loadFiles()
 {
-	windowIcon.loadFromFile("Assets/Images/icon.png");
-	starTexture.loadFromFile("Assets/Images/star.png");
-	colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png");
-	font.loadFromFile("Assets/Fonts/Exo-Regular.ttf");
+	int x = 5;
+	try {
+		if (!(
+			windowIcon.loadFromFile("Assets/Images/icon.png") &&
+			starTexture.loadFromFile("Assets/Images/star.png") &&
+			colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png") &&
+			font.loadFromFile("Assets/Fonts/Exo-Regular.ttf")
+			))
+			throw (std::runtime_error("File loading error"));
+
+	}
+	catch (std::runtime_error)
+	{
+		initErrorWindow();
+		exit(0);
+	}
 }
 
 void Game::pollEvents()
