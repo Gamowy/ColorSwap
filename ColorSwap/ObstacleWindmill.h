@@ -7,7 +7,7 @@ class ObstacleWindmill :
 public:
     ObstacleWindmill(float yPosition, Texture& starTexture, Texture& colorSwitchTexture);
     virtual ~ObstacleWindmill();
-    bool checkObstacleColision(FloatRect playerBounds, Color playerColor);
+    bool checkObstacleColision(RectangleShape player, Color playerColor);
     void update();
     void renderObstacle(RenderTarget* target);
     void render(RenderTarget* target);

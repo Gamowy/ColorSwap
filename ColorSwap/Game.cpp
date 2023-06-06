@@ -99,7 +99,7 @@ void Game::checkColisions()
 {
 	for (int i = 0; i < obstacles.size(); i++) 
 	{
-		if (obstacles.at(i)->checkObstacleColision(player->getBounds(), player->getColor()) )
+		if (obstacles.at(i)->checkObstacleColision(player->getHitbox(), player->getColor()) )
 		{
 			std::cout << "Game over\n";
 			gameStatus = GameState::GameOver;

@@ -1,5 +1,6 @@
 #include "ColorSwap.h"
 #include "ObstacleWindmill.h"
+#include "Collision.h"
 
 ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Texture& colorSwitchTexture):Obstacle(yPosition, starTexture, colorSwitchTexture)
 {
@@ -19,11 +20,11 @@ ObstacleWindmill::~ObstacleWindmill()
 {
 }
 
-bool ObstacleWindmill::checkObstacleColision(FloatRect playerBounds, Color playerColor)
+bool ObstacleWindmill::checkObstacleColision(RectangleShape player, Color playerColor)
 {
 	for (int index = 0; index <= 3; index++)
 	{
-		if (playerBounds.intersects(rectangles[index].getGlobalBounds()) && playerColor!=rectangles[index].getFillColor())
+		if (collision::areColliding(rectangles[index], player) && playerColor != rectangles[index].getFillColor())
 		{
 			return true;
 			std::cout << "Game over!" << std::endl;
