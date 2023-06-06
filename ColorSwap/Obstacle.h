@@ -6,7 +6,7 @@ using namespace sf;
 
 class Obstacle
 {
-private:
+protected:
 	float yPosition;
 	Item* star;
 	Item* colorSwitch;
@@ -18,8 +18,8 @@ public:
 	float getYPosition();
 	bool checkStarColision(FloatRect playerBounds);
 	bool checkSwitchColision(FloatRect playerBounds);
-	virtual bool checkObstacleColision(FloatRect playerBounds);
-	void update();
-	void render(RenderTarget* target);
+	virtual bool checkObstacleColision(RectangleShape player, Color playerColor);
+	virtual void update();
+	virtual void render(RenderTarget* target);
 };
 

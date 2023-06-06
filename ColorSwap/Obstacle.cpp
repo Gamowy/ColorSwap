@@ -42,7 +42,7 @@ bool Obstacle::checkSwitchColision(FloatRect playerBounds)
 }
 
 //Pure virtual function
-bool Obstacle::checkObstacleColision(FloatRect playerBounds)
+bool Obstacle::checkObstacleColision(RectangleShape playerBounds, Color playerColor)
 {
 	return false;
 }

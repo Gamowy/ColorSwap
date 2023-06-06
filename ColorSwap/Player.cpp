@@ -12,25 +12,29 @@ void Player::move()
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
-		std::cout << "Player position x:" << ball.getPosition().x << ", y:" << ball.getPosition().y << std::endl;
+		std::cout << "Player position x:" << hitbox.getPosition().x << ", y:" << hitbox.getPosition().y << std::endl;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Space) == false)
 	{
 		canJump = true;
 	}
 	ball.move(ballSpeed);
-
+	hitbox.move(ballSpeed);
 }
 
 Player::Player()
 {
-	ball.setRadius(12.5f);
+	hitbox.setSize(Vector2f(25.f,25.f));
+	hitbox.setOrigin(hitbox.getSize().x/2.f, hitbox.getSize().y / 2.f);
 	colorChange();
-	ball.setPosition(WINDOW_WIDTH/2.f - ball.getRadius(), 100000.f);
+	hitbox.setPosition(WINDOW_WIDTH/2.f - hitbox.getSize().x / 2.f, 100000.f);
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
-	ball.setOrigin(ball.getRadius(), ball.getRadius());
 	canJump = true;
+
+	ball.setRadius(12.5f);
+	ball.setPosition(WINDOW_WIDTH / 2.f - ball.getRadius(), 100000.f);
+	ball.setOrigin(ball.getRadius(), ball.getRadius());
 }
 
 Player::~Player()
@@ -39,7 +43,7 @@ Player::~Player()
 
 Vector2f Player::getPosition()
 {
-	return ball.getPosition();
+	return hitbox.getPosition();
 }
 
 Vector2f Player::getSpeed()
@@ -49,7 +53,17 @@ Vector2f Player::getSpeed()
 
 FloatRect Player::getBounds()
 {
-	return ball.getGlobalBounds();
+	return hitbox.getGlobalBounds();
+}
+
+Color Player::getColor()
+{
+	return ballColor;
+}
+
+RectangleShape Player::getHitbox()
+{
+	return hitbox;
 }
 
 void Player::colorChange()
