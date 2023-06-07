@@ -25,7 +25,7 @@ public:
 	FloatRect getBounds();
 	Color getColor();
 	RectangleShape getHitbox();
-	void colorChange();
+	void switchColor();
 	void update();
 	void render(RenderTarget* target);
 };

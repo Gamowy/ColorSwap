@@ -7,10 +7,10 @@ void Game::initVariables()
 	window = nullptr;
 	player = new Player();
 	view = new View();
-	points = 0;
+	score = 0;
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
-	obstacles.push_back(new Obstacle(99500.f, starTexture, colorSwitchTexture));
+	obstacles.push_back(new ObstacleWindmill(99300.f, starTexture, colorSwitchTexture));
 	obstacles.push_back(new ObstacleWindmill(99700.f, starTexture, colorSwitchTexture));
 }
 
@@ -107,13 +107,12 @@ void Game::checkColisions()
 
 		if (obstacles.at(i)->checkStarColision(player->getBounds()))
 		{
-			points++;
-			std::cout << "Star!\n";
+			score++;
 		}
 
 		if (obstacles.at(i)->checkSwitchColision(player->getBounds()))
 		{
-			player->colorChange();
+			player->switchColor();
 		}
 	}
 }
@@ -175,7 +174,7 @@ void Game::update()
 		case GameState::Play:
 			player->update();
 			moveView();
-			pointCounter->update(view->getCenter(), points);
+			pointCounter->update(view->getCenter(), score);
 			updateObstacles();
 			checkColisions();
 			checkOutOfMapCondition();

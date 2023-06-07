@@ -26,7 +26,7 @@ Player::Player()
 {
 	hitbox.setSize(Vector2f(25.f,25.f));
 	hitbox.setOrigin(hitbox.getSize().x/2.f, hitbox.getSize().y / 2.f);
-	colorChange();
+	switchColor();
 	hitbox.setPosition(WINDOW_WIDTH/2.f - hitbox.getSize().x / 2.f, 100000.f);
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
@@ -66,7 +66,7 @@ RectangleShape Player::getHitbox()
 	return hitbox;
 }
 
-void Player::colorChange()
+void Player::switchColor()
 {
 	//Pick random color
 	int RandomNumber = distribution(gen);

@@ -19,7 +19,7 @@ private:
 	PointCounter* pointCounter;
 
 	//Game variables
-	unsigned int points;
+	unsigned int score;
 	Event event;
 	GameState gameStatus;
 	Player* player;
