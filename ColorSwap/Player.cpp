@@ -12,7 +12,6 @@ void Player::move()
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
-		std::cout << "Player position x:" << hitbox.getPosition().x << ", y:" << hitbox.getPosition().y << std::endl;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Space) == false)
 	{

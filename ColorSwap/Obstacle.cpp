@@ -41,7 +41,6 @@ bool Obstacle::checkSwitchColision(FloatRect playerBounds)
 	return false;
 }
 
-//Pure virtual function
 bool Obstacle::checkObstacleColision(RectangleShape playerBounds, Color playerColor)
 {
 	return false;
@@ -51,8 +50,13 @@ void Obstacle::update()
 {
 }
 
+void Obstacle::renderObstacle(RenderTarget* target)
+{
+}
+
 void Obstacle::render(RenderTarget* target)
 {
+	renderObstacle(target);
 	if (star != nullptr) 
 	{
 		star->render(target);

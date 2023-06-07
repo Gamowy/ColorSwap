@@ -48,18 +48,3 @@ void ObstacleWindmill::renderObstacle(RenderTarget* target)
 		target->draw(rectangles[index]);
 	}
 }
-
-void ObstacleWindmill::render(RenderTarget* target)
-{
-
-	renderObstacle(target);
-
-	if (star != nullptr)
-	{
-		star->render(target);
-	}
-	if (colorSwitch != nullptr)
-	{
-		colorSwitch->render(target);
-	}
-}
