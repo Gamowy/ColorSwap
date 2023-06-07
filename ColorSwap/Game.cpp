@@ -130,7 +130,7 @@ void Game::removeObstacles()
 	//remove obstacles that are out of view
 	for (int i = 0; i < obstacles.size(); i++) 
 	{
-		if (obstacles.at(i)->getYPosition() > view->getCenter().y + 0.6f * WINDOW_HEIGHT)
+		if (obstacles.at(i)->getYPosition() > view->getCenter().y + 0.8f * WINDOW_HEIGHT)
 		{
 			obstacles.erase(obstacles.begin() + i);
 		}
