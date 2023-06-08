@@ -32,7 +32,7 @@ void Game::initWindow()
 
 void Game::initErrorWindow(std::exception e)
 {
-	//Creatr error window (windows specific)
+	//Create error window (windows specific)
 	std::string string = e.what();
 	std::wstring wstring(string.begin(), string.end());
 	LPCWSTR errorMessage = wstring.c_str();
@@ -44,7 +44,7 @@ void Game::loadFiles()
 	std::ostringstream output;
 	sf::err().rdbuf(output.rdbuf());
 
-	//Check if all the files loaded correctly
+	//Check if files loaded correctly
 	try {
 		if (!(
 			windowIcon.loadFromFile("Assets/Images/icon.png") &&
