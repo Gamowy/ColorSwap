@@ -32,33 +32,27 @@ void Game::initWindow()
 
 void Game::initErrorWindow(std::exception e)
 {
-	//Create error window
-	sf::RenderWindow window(sf::VideoMode(300, 0), e.what());
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-		window.clear();
-		window.display();
-	}
+	//Creatr error window (windows specific)
+	std::string string = e.what();
+	std::wstring wstring(string.begin(), string.end());
+	LPCWSTR errorMessage = wstring.c_str();
+	MessageBox(NULL, errorMessage, L"An error has occured!", MB_ICONERROR | MB_OK);
 }
 
 void Game::loadFiles()
 {
+	std::ostringstream output;
+	sf::err().rdbuf(output.rdbuf());
+
 	//Check if all the files loaded correctly
 	try {
 		if (!(
-			windowIcon.loadFromFile("Assets/Images/icon.png") &&
+			windowIcon.loadFromFile("Assets/Images/ico.png") &&
 			starTexture.loadFromFile("Assets/Images/star.png") &&
 			colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png") &&
 			font.loadFromFile("Assets/Fonts/Exo-Regular.ttf")
 			))
-			throw (std::runtime_error("File loading error"));
-
+			throw (std::runtime_error(output.str()));
 	}
 	catch (std::runtime_error e)
 	{
