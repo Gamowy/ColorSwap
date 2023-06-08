@@ -7,7 +7,9 @@
 
 using namespace sf;
 
-enum GameState {Menu, Play, GameOver, Error};
+//Possible game states
+enum GameState { Menu, Play, GameOver, Error };
+//Integer distribution for random obstacle generation
 static std::uniform_int_distribution<int> obstacleRandomPick(0, 0);
 
 class Game
