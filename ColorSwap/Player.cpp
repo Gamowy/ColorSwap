@@ -14,7 +14,7 @@ void Player::move(RenderWindow* window)
 		canJump = false;
 		startedJumping = true;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Space) == false)
+	if (Keyboard::isKeyPressed(Keyboard::Space)==false && Mouse::isButtonPressed(Mouse::Left) == false)
 	{
 		canJump = true;
 	}
