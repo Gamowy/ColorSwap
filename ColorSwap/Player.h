@@ -2,11 +2,11 @@
 #include "ColorSwap.h"
 
 using namespace sf;
+static std::uniform_int_distribution<int> colorRandomPick(0, 3);
 
 class Player
 {
 private:
-
 	CircleShape ball;
 	RectangleShape hitbox;
 	Color ballColor;

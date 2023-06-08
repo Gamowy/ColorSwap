@@ -1,9 +1,6 @@
 #include "ColorSwap.h"
 #include "Player.h"
 
-std::random_device rd;
-std::mt19937 gen(rd());
-std::uniform_int_distribution<int> distribution(0, 3);
 
 void Player::move()
 {
@@ -23,6 +20,7 @@ void Player::move()
 
 Player::Player()
 {
+	
 	hitbox.setSize(Vector2f(25.f,25.f));
 	hitbox.setOrigin(hitbox.getSize().x/2.f, hitbox.getSize().y / 2.f);
 	switchColor();
@@ -68,7 +66,7 @@ RectangleShape Player::getHitbox()
 void Player::switchColor()
 {
 	//Pick random color
-	int RandomNumber = distribution(gen);
+	int RandomNumber = colorRandomPick(gen);
 	switch (RandomNumber)
 	{
 	case 0:

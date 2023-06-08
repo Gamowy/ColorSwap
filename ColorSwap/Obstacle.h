@@ -4,6 +4,7 @@
 
 using namespace sf;
 
+
 class Obstacle
 {
 protected:

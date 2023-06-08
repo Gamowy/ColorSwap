@@ -5,8 +5,7 @@ ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Textur
 {
 	Vector2f rectangleSize(25, 150);
 	Color colors[4] = { COLOR_SWAP_CYAN, COLOR_SWAP_PURPLE, COLOR_SWAP_RED, COLOR_SWAP_YELLOW };
-
-	
+	colorSwitch->movePosition(-100.f);
 
 	for (int index = 0; index <= 3; index++)
 	{

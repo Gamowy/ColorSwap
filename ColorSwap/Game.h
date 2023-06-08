@@ -8,6 +8,7 @@
 using namespace sf;
 
 enum GameState {Menu, Play, GameOver, Error};
+static std::uniform_int_distribution<int> obstacleRandomPick(0, 0);
 
 class Game
 {
@@ -39,8 +40,9 @@ private:
 	void pollEvents();
 	void moveView();
 	void checkColisions();
-	void createObstacles();
-	void removeObstacles();
+	void obstacleGenerator();
+	void createObstacle(float yPosition);
+	void obstacleRemover();
 	void checkOutOfMapCondition();
 	void renderObstacles();
 	void updateObstacles();
