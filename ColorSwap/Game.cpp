@@ -10,7 +10,7 @@ void Game::initVariables()
 	score = 0;
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
-
+  
 	//Create a view and center it on player
 	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
