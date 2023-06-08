@@ -137,6 +137,10 @@ void Game::createObstacle(float yPosition)
 		case 0:
 			obstacles.push_back(new ObstacleWindmill(yPosition, starTexture, colorSwitchTexture));
 			break;
+		//rectangle ring
+		case 1:
+			obstacles.push_back(new ObstacleRingOfRectangles(yPosition, starTexture, colorSwitchTexture));
+			break;
 	}
 }
 
