@@ -10,6 +10,8 @@ void Game::initVariables()
 	score = 0;
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
+
+	srand(time(NULL));
 	obstacles.push_back(new ObstacleWindmill(99300.f, starTexture, colorSwitchTexture));
 	obstacles.push_back(new ObstacleWindmill(99700.f, starTexture, colorSwitchTexture));
 }

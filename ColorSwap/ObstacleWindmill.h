@@ -3,6 +3,7 @@
 class ObstacleWindmill : virtual public Obstacle
 {
     RectangleShape rectangles[4];
+    float rotationSpeed;
 public:
     ObstacleWindmill(float yPosition, Texture& starTexture, Texture& colorSwitchTexture);
     virtual ~ObstacleWindmill();

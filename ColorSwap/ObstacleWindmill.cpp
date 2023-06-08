@@ -6,13 +6,31 @@ ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Textur
 {
 	Vector2f rectangleSize(25, 150);
 	Color colors[4] = { COLOR_SWAP_CYAN, COLOR_SWAP_PURPLE, COLOR_SWAP_RED, COLOR_SWAP_YELLOW };
+	bool isOnLeftSide;
+	isOnLeftSide = rand() % 2;
 
 	for (int index = 0; index <= 3; index++)
 	{
 		rectangles[index].setRotation(index *90);
 		rectangles[index].setSize(rectangleSize);
 		rectangles[index].setFillColor(colors[index]);
-		rectangles[index].setPosition(WINDOW_WIDTH * 0.25, yPosition);
+		if (isOnLeftSide == 1)
+		{
+			rectangles[index].setPosition(WINDOW_WIDTH * 0.25f, yPosition);
+		}
+		else
+		{
+			rectangles[index].setPosition(WINDOW_WIDTH * 0.7f, yPosition);
+		}
+	}
+
+	if (isOnLeftSide == 1)
+	{
+		rotationSpeed = -1.0f;
+	}
+	else
+	{
+		rotationSpeed = 1.0f;
 	}
 }
 
@@ -37,7 +55,7 @@ void ObstacleWindmill::update()
 {
 	for (int index = 0; index <= 3; index++)
 	{
-		rectangles[index].setRotation(rectangles[index].getRotation() - 1);
+		rectangles[index].setRotation(rectangles[index].getRotation() + rotationSpeed);
 	}
 }
 
