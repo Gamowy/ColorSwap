@@ -1,5 +1,7 @@
 #pragma once
+#include "ColorSwap.h"
 #include "Obstacle.h"
+
 class ObstacleWindmill : virtual public Obstacle
 {
     RectangleShape rectangles[4];

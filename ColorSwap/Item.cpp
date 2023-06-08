@@ -18,6 +18,11 @@ FloatRect Item::getBounds()
 	return item.getGlobalBounds();
 }
 
+void Item::movePosition(float yMove)
+{
+	item.move(0.f, yMove);
+}
+
 void Item::update()
 {
 

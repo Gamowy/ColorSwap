@@ -2,8 +2,8 @@
 #include "ColorSwap.h"
 #include "Player.h"
 #include "Obstacle.h"
-#include"PointCounter.h"
 #include "ObstacleWindmill.h"
+#include "PointCounter.h"
 
 using namespace sf;
 

@@ -8,6 +8,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include "Collision.h"
 
 //Constants
 const int FRAME_RATE = 60;
