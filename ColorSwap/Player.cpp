@@ -8,7 +8,7 @@ void Player::move()
 	{
 		ballSpeed.y += GRAVITY;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Space) && canJump==true) 
+	if ( (Keyboard::isKeyPressed(Keyboard::Space)) && canJump==true) 
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
@@ -25,7 +25,7 @@ void Player::move()
 Player::Player()
 {
 	
-	hitbox.setSize(Vector2f(25.f,25.f));
+	hitbox.setSize(Vector2f(22.5f,22.5f));
 	hitbox.setOrigin(hitbox.getSize().x/2.f, hitbox.getSize().y / 2.f);
 	switchColor();
 	hitbox.setPosition(WINDOW_WIDTH/2.f - hitbox.getSize().x / 2.f, 100000.f);
@@ -34,7 +34,7 @@ Player::Player()
 	startedJumping = false;
 	canJump = true;
 
-	ball.setRadius(12.5f);
+	ball.setRadius(13.f);
 	ball.setPosition(WINDOW_WIDTH / 2.f - ball.getRadius(), 100000.f);
 	ball.setOrigin(ball.getRadius(), ball.getRadius());
 }
