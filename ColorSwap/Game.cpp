@@ -56,6 +56,7 @@ void Game::loadFiles()
 	}
 	catch (std::runtime_error e)
 	{
+		gameStatus = GameState::GameOver;
 		initErrorWindow(e);
 		exit(0);
 	}
