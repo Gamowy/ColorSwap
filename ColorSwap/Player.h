@@ -16,7 +16,8 @@ private:
 	bool canJump;
 
 	//Private methods
-	void move();
+	void move(RenderWindow* window);
+	bool checkMousePosition(RenderWindow* window);
 
 public:
 	Player();
@@ -28,7 +29,7 @@ public:
 	Color getColor();
 	RectangleShape getHitbox();
 	void switchColor();
-	void update();
+	void update(RenderWindow* window);
 	void render(RenderTarget* target);
 };
 

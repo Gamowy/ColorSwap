@@ -2,13 +2,13 @@
 #include "Player.h"
 
 
-void Player::move()
+void Player::move(RenderWindow* window)
 {
 	if (startedJumping)
 	{
 		ballSpeed.y += GRAVITY;
 	}
-	if ( (Keyboard::isKeyPressed(Keyboard::Space)) && canJump==true) 
+	if ( (Keyboard::isKeyPressed(Keyboard::Space) || (Mouse::isButtonPressed(Mouse::Left)&& checkMousePosition(window)==true)) && canJump == true)
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
@@ -20,6 +20,16 @@ void Player::move()
 	}
 	ball.move(ballSpeed);
 	hitbox.move(ballSpeed);
+}
+
+bool Player::checkMousePosition(RenderWindow* window)
+{
+	if (Mouse::getPosition(*window).x >= 0 && Mouse::getPosition(*window).x<=WINDOW_WIDTH &&
+		Mouse::getPosition(*window).y>=0 && Mouse::getPosition(*window).y<=WINDOW_HEIGHT)
+	{
+		return true;
+	}
+	return false;
 }
 
 Player::Player()
@@ -102,9 +112,9 @@ void Player::switchColor()
 	ball.setFillColor(ballColor);
 }
 
-void Player::update()
+void Player::update(RenderWindow* window)
 {
-	move();
+	move(window);
 }
 
 void Player::render(RenderTarget* target)

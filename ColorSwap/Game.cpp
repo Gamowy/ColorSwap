@@ -183,7 +183,7 @@ void Game::update()
 	pollEvents();
 	switch (gameStatus) {
 		case GameState::Play:
-			player->update();
+			player->update(window);
 			moveView();
 			pointCounter->update(view->getCenter(), score);	
 			obstacleGenerator();
