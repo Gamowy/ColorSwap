@@ -1,7 +1,7 @@
 #include "ColorSwap.h"
 #include "ObstacleWindmill.h"
 
-ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Texture& colorSwitchTexture):Obstacle(yPosition, starTexture, colorSwitchTexture)
+ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Texture& colorSwitchTexture) : Obstacle(yPosition, starTexture, colorSwitchTexture)
 {
 	Vector2f rectangleSize(25, 150);
   bool isOnLeftSide = sidePicker(gen);
@@ -44,7 +44,6 @@ bool ObstacleWindmill::checkObstacleColision(RectangleShape player, Color player
 		if (collision::areColliding(rectangles[index], player) && playerColor != rectangles[index].getFillColor())
 		{
 			return true;
-			std::cout << "Game over!" << std::endl;
 		}
 	}
 	return false;

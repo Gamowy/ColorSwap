@@ -1,7 +1,7 @@
 #include "ColorSwap.h"
 #include "ObstacleRingOfRectangles.h"
 
-ObstacleRingOfRectangles::ObstacleRingOfRectangles(float yPosition, Texture& starTexture, Texture& colorSwitchTexture) :Obstacle(yPosition, starTexture, colorSwitchTexture)
+ObstacleRingOfRectangles::ObstacleRingOfRectangles(float yPosition, Texture& starTexture, Texture& colorSwitchTexture) : Obstacle(yPosition, starTexture, colorSwitchTexture)
 {
 	rotationSpeed = 1.5f;
 	center.x = WINDOW_WIDTH / 2;

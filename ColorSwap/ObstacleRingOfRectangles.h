@@ -1,8 +1,7 @@
 #pragma once
 #include"ColorSwap.h"
 #include "Obstacle.h"
-class ObstacleRingOfRectangles :
-    virtual public Obstacle
+class ObstacleRingOfRectangles : virtual public Obstacle
 {
     Vector2f center;
     RectangleShape rectangles[12];
