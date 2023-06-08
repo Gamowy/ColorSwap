@@ -3,7 +3,7 @@
 
 void Game::initVariables()
 {
-	gameStatus = GameState::Menu;
+	gameStatus = GameState::Play;
 	window = nullptr;
 	player = new Player();
 	view = new View();
@@ -79,9 +79,6 @@ void Game::pollEvents()
 		case Event::KeyPressed:
 			if (event.key.code == Keyboard::Escape)
 				window->close();
-			if (gameStatus == GameState::Menu && event.key.code == Keyboard::Space)
-				gameStatus = GameState::Play;
-			break;
 		}		
 	}
 }	

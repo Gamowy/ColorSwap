@@ -4,11 +4,15 @@
 
 void Player::move()
 {
-	ballSpeed.y += GRAVITY;
+	if (startedJumping)
+	{
+		ballSpeed.y += GRAVITY;
+	}
 	if (Keyboard::isKeyPressed(Keyboard::Space) && canJump==true) 
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
+		startedJumping = true;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Space) == false)
 	{
@@ -27,6 +31,7 @@ Player::Player()
 	hitbox.setPosition(WINDOW_WIDTH/2.f - hitbox.getSize().x / 2.f, 100000.f);
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
+	startedJumping = false;
 	canJump = true;
 
 	ball.setRadius(12.5f);

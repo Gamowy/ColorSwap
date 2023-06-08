@@ -11,6 +11,7 @@ private:
 	RectangleShape hitbox;
 	Color ballColor;
 	Vector2f ballSpeed;
+	bool startedJumping;
 	bool canJump;
 
 	//Private methods
