@@ -4,12 +4,16 @@
 #include <ctime>
 #include <vector>
 #include <string>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include <Windows.h>
 #include "Collision.h"
 
+
+//Random generator
 static std::random_device rd;
 static std::mt19937 gen(rd());
 

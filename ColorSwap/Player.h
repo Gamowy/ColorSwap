@@ -2,6 +2,7 @@
 #include "ColorSwap.h"
 
 using namespace sf;
+//Integer distribution for seting random ball color
 static std::uniform_int_distribution<int> colorRandomPick(0, 3);
 
 class Player
