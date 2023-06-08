@@ -8,13 +8,13 @@ void Player::move()
 	{
 		ballSpeed.y += GRAVITY;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Space) && canJump==true) 
+	if ( (Keyboard::isKeyPressed(Keyboard::Space) || Mouse::isButtonPressed(Mouse::Left)) && canJump==true) 
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
 		startedJumping = true;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Space) == false)
+	if (Keyboard::isKeyPressed(Keyboard::Space) == false && Mouse::isButtonPressed(Mouse::Left)==false)
 	{
 		canJump = true;
 	}
