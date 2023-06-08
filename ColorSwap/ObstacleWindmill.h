@@ -1,5 +1,8 @@
 #pragma once
 #include "Obstacle.h"
+
+static std::uniform_int_distribution<int> sidePicker(0, 1);
+
 class ObstacleWindmill : virtual public Obstacle
 {
     RectangleShape rectangles[4];

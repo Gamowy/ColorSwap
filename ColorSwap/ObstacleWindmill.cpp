@@ -7,16 +7,16 @@ ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Textur
 	Vector2f rectangleSize(25, 150);
 	Color colors[4] = { COLOR_SWAP_CYAN, COLOR_SWAP_PURPLE, COLOR_SWAP_RED, COLOR_SWAP_YELLOW };
 	bool isOnLeftSide;
-	isOnLeftSide = rand() % 2;
+	isOnLeftSide = sidePicker(gen);
 
 	for (int index = 0; index <= 3; index++)
 	{
 		rectangles[index].setRotation(index *90);
 		rectangles[index].setSize(rectangleSize);
 		rectangles[index].setFillColor(colors[index]);
-		if (isOnLeftSide == 1)
+		if (isOnLeftSide)
 		{
-			rectangles[index].setPosition(WINDOW_WIDTH * 0.25f, yPosition);
+			rectangles[index].setPosition(WINDOW_WIDTH * 0.3f, yPosition);
 		}
 		else
 		{
@@ -24,7 +24,7 @@ ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Textur
 		}
 	}
 
-	if (isOnLeftSide == 1)
+	if (isOnLeftSide)
 	{
 		rotationSpeed = -1.0f;
 	}
