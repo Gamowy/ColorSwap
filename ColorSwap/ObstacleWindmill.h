@@ -1,4 +1,5 @@
 #pragma once
+#include "ColorSwap.h"
 #include "Obstacle.h"
 
 static std::uniform_int_distribution<int> sidePicker(0, 1);

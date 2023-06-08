@@ -10,9 +10,13 @@ void Game::initVariables()
 	score = 0;
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
+  
+	//Create a view and center it on player
+	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
+	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	obstacles.push_back(new ObstacleWindmill(99300.f, starTexture, colorSwitchTexture));
-	obstacles.push_back(new ObstacleWindmill(99700.f, starTexture, colorSwitchTexture));
+	//create first obstacle
+	obstacleGenerator();
 }
 
 void Game::initWindow()
@@ -23,11 +27,6 @@ void Game::initWindow()
 	window = new RenderWindow(VideoMode(this->videoMode), "Color Swap", Style::Titlebar | Style::Close);
 	window->setIcon(this->windowIcon.getSize().x, this->windowIcon.getSize().y, this->windowIcon.getPixelsPtr());
 	window->setFramerateLimit(FRAME_RATE);
-	
-	//Create a view and center it on player
-	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
-	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
 	pointCounter = new PointCounter(font);
 }
 
@@ -118,23 +117,38 @@ void Game::checkColisions()
 	}
 }
 
-void Game::createObstacles()
+void Game::obstacleGenerator()
 {
-	//Tutaj bedziemy automatycznie tworzyc przeszkody kiedy widok bedzie sie przesuwal
-	//To zrobimy dopiero jak beda juz stworzone wszystkie rodzaje przeszkod
-	//Narazie przeszkody dodajemy recznie w metodzie initVariables();
+	if (obstacles.empty())
+	{
+		createObstacle(view->getCenter().y - 200.f);
+	}
+	else if (obstacles.back()->getYPosition() > view->getCenter().y - 0.8f * WINDOW_HEIGHT)
+	{
+		createObstacle(obstacles.back()->getYPosition() - 450.f);
+	}
+
 }
 
+void Game::createObstacle(float yPosition)
+{
+	//create random obstacle when view moves
+	int obstacleIndex = obstacleRandomPick(gen);
+	switch (obstacleIndex) 
+	{
+		//windmill
+		case 0:
+			obstacles.push_back(new ObstacleWindmill(yPosition, starTexture, colorSwitchTexture));
+			break;
+	}
+}
 
-void Game::removeObstacles()
+void Game::obstacleRemover()
 {
 	//remove obstacles that are out of view
-	for (int i = 0; i < obstacles.size(); i++) 
+	if (!obstacles.empty() && obstacles.front()->getYPosition() > view->getCenter().y + 0.8f * WINDOW_HEIGHT)
 	{
-		if (obstacles.at(i)->getYPosition() > view->getCenter().y + 0.8f * WINDOW_HEIGHT)
-		{
-			obstacles.erase(obstacles.begin() + i);
-		}
+		obstacles.erase(obstacles.begin());
 	}
 }
 
@@ -175,13 +189,14 @@ void Game::update()
 		case GameState::Play:
 			player->update();
 			moveView();
-			pointCounter->update(view->getCenter(), score);
+			pointCounter->update(view->getCenter(), score);	
+			obstacleGenerator();
 			updateObstacles();
 			checkColisions();
 			checkOutOfMapCondition();
-			createObstacles();
-			removeObstacles();
+			obstacleRemover();		
 			break;
+			
 	}
 }
 
