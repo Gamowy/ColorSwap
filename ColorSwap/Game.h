@@ -2,12 +2,13 @@
 #include "ColorSwap.h"
 #include "Player.h"
 #include "Obstacle.h"
-#include"PointCounter.h"
 #include "ObstacleWindmill.h"
+#include "PointCounter.h"
 
 using namespace sf;
 
 enum GameState {Menu, Play, GameOver, Error};
+static std::uniform_int_distribution<int> obstacleRandomPick(0, 0);
 
 class Game
 {
@@ -19,7 +20,7 @@ private:
 	PointCounter* pointCounter;
 
 	//Game variables
-	unsigned int points;
+	unsigned int score;
 	Event event;
 	GameState gameStatus;
 	Player* player;
@@ -39,8 +40,9 @@ private:
 	void pollEvents();
 	void moveView();
 	void checkColisions();
-	void createObstacles();
-	void removeObstacles();
+	void obstacleGenerator();
+	void createObstacle(float yPosition);
+	void obstacleRemover();
 	void checkOutOfMapCondition();
 	void renderObstacles();
 	void updateObstacles();

@@ -2,7 +2,7 @@
 #ifndef RECTANGULAR_BOUNDARY_COLLISION_HPP
 #define RECTANGULAR_BOUNDARY_COLLISION_HPP
 
-#include <SFML/Graphics.hpp>
+#include "ColorSwap.h"
 #include <array>
 
 namespace collision
@@ -10,7 +10,7 @@ namespace collision
     namespace impl
     {
 
-        bool satRectangleAndPoints(const sf::Vector2f rectangleSize, const std::array<sf::Vector2f, 4>& points);
+        static bool satRectangleAndPoints(const sf::Vector2f rectangleSize, const std::array<sf::Vector2f, 4>& points);
 
     } // namespace impl
 
@@ -27,7 +27,7 @@ namespace collision
 //     getInverseTransform() (must return sf::Transform)
 //     getLocalBounds()      (must return sf::FloatRect)
     template <class T1, class T2>
-    bool areColliding(const T1& object1, const T2& object2, const int collisionLevel = -1)
+    static bool areColliding(const T1& object1, const T2& object2, const int collisionLevel = -1)
     {
         // LEVEL 0 (axis-aligned bounding box)
         const bool level0{ object1.getGlobalBounds().intersects(object2.getGlobalBounds()) };
@@ -88,7 +88,7 @@ namespace collision
     namespace impl
     {
 
-        bool satRectangleAndPoints(const sf::Vector2f rectangleSize, const std::array<sf::Vector2f, 4>& points)
+        static bool satRectangleAndPoints(const sf::Vector2f rectangleSize, const std::array<sf::Vector2f, 4>& points)
         {
             bool allPointsLeftOfRectangle{ true };
             bool allPointsRightOfRectangle{ true };

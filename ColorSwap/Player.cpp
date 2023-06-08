@@ -1,9 +1,6 @@
 #include "ColorSwap.h"
 #include "Player.h"
 
-std::random_device rd;
-std::mt19937 gen(rd());
-std::uniform_int_distribution<int> distribution(0, 3);
 
 void Player::move()
 {
@@ -12,7 +9,6 @@ void Player::move()
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
-		std::cout << "Player position x:" << hitbox.getPosition().x << ", y:" << hitbox.getPosition().y << std::endl;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Space) == false)
 	{
@@ -24,9 +20,10 @@ void Player::move()
 
 Player::Player()
 {
+	
 	hitbox.setSize(Vector2f(25.f,25.f));
 	hitbox.setOrigin(hitbox.getSize().x/2.f, hitbox.getSize().y / 2.f);
-	colorChange();
+	switchColor();
 	hitbox.setPosition(WINDOW_WIDTH/2.f - hitbox.getSize().x / 2.f, 100000.f);
 	ballSpeed.x = 0.f;
 	ballSpeed.y = 0.f;
@@ -66,10 +63,10 @@ RectangleShape Player::getHitbox()
 	return hitbox;
 }
 
-void Player::colorChange()
+void Player::switchColor()
 {
 	//Pick random color
-	int RandomNumber = distribution(gen);
+	int RandomNumber = colorRandomPick(gen);
 	switch (RandomNumber)
 	{
 	case 0:

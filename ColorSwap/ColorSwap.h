@@ -8,6 +8,10 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include "Collision.h"
+
+static std::random_device rd;
+static std::mt19937 gen(rd());
 
 //Constants
 const int FRAME_RATE = 60;
@@ -16,7 +20,7 @@ const int WINDOW_HEIGHT = 800; //px;
 const int FONT_SIZE = 35;
 
 const float GRAVITY = 0.5f;
-const float JUMP_HEIGHT = -5.f;
+const float JUMP_HEIGHT = -8.f;
 
 const sf::Color COLOR_SWAP_CYAN(79, 196, 209);
 const sf::Color COLOR_SWAP_PURPLE(125, 18, 209);

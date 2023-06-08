@@ -1,7 +1,8 @@
 #pragma once
+#include "ColorSwap.h"
 #include "Obstacle.h"
-class ObstacleWindmill :
-    virtual public Obstacle
+
+class ObstacleWindmill : virtual public Obstacle
 {
     RectangleShape rectangles[4];
 public:
@@ -10,6 +11,5 @@ public:
     bool checkObstacleColision(RectangleShape player, Color playerColor);
     void update();
     void renderObstacle(RenderTarget* target);
-    void render(RenderTarget* target);
 };
 

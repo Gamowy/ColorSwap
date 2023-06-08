@@ -4,6 +4,7 @@
 
 using namespace sf;
 
+
 class Obstacle
 {
 protected:
@@ -20,6 +21,7 @@ public:
 	bool checkSwitchColision(FloatRect playerBounds);
 	virtual bool checkObstacleColision(RectangleShape player, Color playerColor);
 	virtual void update();
-	virtual void render(RenderTarget* target);
+	virtual void renderObstacle(RenderTarget* target);
+	void render(RenderTarget* target);
 };
 
