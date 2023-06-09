@@ -2,11 +2,14 @@
 #include "ColorSwap.h"
 #include "Obstacle.h"
 
-static std::uniform_int_distribution<int> sidePicker(0, 1);
+//Integer distribution for windmill variation
+static std::uniform_int_distribution<int> variation(0, 2);
 
 class ObstacleWindmill : virtual public Obstacle
 {
-    RectangleShape rectangles[4];
+private:
+    int rectCount;
+    RectangleShape* rectangles;
     float rotationSpeed;
 public:
     ObstacleWindmill(float yPosition, Texture& starTexture, Texture& colorSwitchTexture);
