@@ -136,6 +136,11 @@ void Game::createObstacle(float yPosition)
 		case 1:
 			obstacles.push_back(new ObstacleRingOfRectangles(yPosition, starTexture, colorSwitchTexture));
 			break;
+		//square
+		case 2:
+			obstacles.push_back(new ObstacleSquare(yPosition, starTexture, colorSwitchTexture));
+			break;
+
 	}
 }
 

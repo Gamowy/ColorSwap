@@ -3,15 +3,14 @@
 
 ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Texture& colorSwitchTexture) : Obstacle(yPosition, starTexture, colorSwitchTexture)
 {
-	Vector2f rectangleSize(25, 150);
-  bool isOnLeftSide = sidePicker(gen);
+	bool isOnLeftSide = sidePicker(gen);
 	Color colors[4] = { COLOR_SWAP_CYAN, COLOR_SWAP_PURPLE, COLOR_SWAP_RED, COLOR_SWAP_YELLOW };
 	colorSwitch->movePosition(-100.f);
 
 	for (int index = 0; index <= 3; index++)
 	{
 		rectangles[index].setRotation(index * 90.f);
-		rectangles[index].setSize(rectangleSize);
+		rectangles[index].setSize(Vector2f(25.f, 150.f));
 		rectangles[index].setFillColor(colors[index]);
 		if (isOnLeftSide)
 		{
