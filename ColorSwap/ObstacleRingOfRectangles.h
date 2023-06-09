@@ -3,6 +3,7 @@
 #include "Obstacle.h"
 class ObstacleRingOfRectangles : virtual public Obstacle
 {
+private:
     Vector2f center;
     RectangleShape rectangles[12];
     float rotationSpeed;

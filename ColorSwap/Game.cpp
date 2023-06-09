@@ -64,15 +64,15 @@ void Game::loadFiles()
 
 void Game::pollEvents()
 {
-	while (window->pollEvent(event)) 
+	while (window->pollEvent(ev)) 
 	{
-		switch (event.type)
+		switch (ev.type)
 		{
 		case Event::Closed:
 			window->close();
 			break;
 		case Event::KeyPressed:
-			if (event.key.code == Keyboard::Escape)
+			if (ev.key.code == Keyboard::Escape)
 				window->close();
 		}		
 	}

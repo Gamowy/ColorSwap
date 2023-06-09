@@ -25,7 +25,7 @@ private:
 
 	//Game variables
 	unsigned int score;
-	Event event;
+	Event ev;
 	GameState gameStatus;
 	Player* player;
 	std::vector<Obstacle*> obstacles;

@@ -4,6 +4,7 @@
 
 class ObstacleSquare : virtual public Obstacle
 {
+private:
     Vector2f center;
     RectangleShape rectangles[4];
     float rotationSpeed;
