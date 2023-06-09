@@ -14,13 +14,14 @@ private:
 	Vector2f ballSpeed;
 	bool startedJumping;
 	bool canJump;
+	Sound jumpSound;
 
 	//Private methods
 	void move(RenderWindow* window);
 	bool checkMousePosition(RenderWindow* window);
 
 public:
-	Player();
+	Player(SoundBuffer& jumpSoundFile );
 	virtual ~Player();
 
 	Vector2f getPosition();
