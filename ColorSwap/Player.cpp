@@ -8,7 +8,7 @@ void Player::move(RenderWindow* window)
 	{
 		ballSpeed.y += GRAVITY;
 	}
-	if ( (Keyboard::isKeyPressed(Keyboard::Space) || (Mouse::isButtonPressed(Mouse::Left)&& checkMousePosition(window)==true)) && canJump == true)
+	if ( (Keyboard::isKeyPressed(Keyboard::Space) || (Mouse::isButtonPressed(Mouse::Left) && checkMousePosition(window)==true)) && canJump == true)
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
@@ -121,5 +121,3 @@ void Player::render(RenderTarget* target)
 {
 	target->draw(ball);
 }
-
-

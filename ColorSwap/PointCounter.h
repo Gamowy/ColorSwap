@@ -12,4 +12,3 @@ public:
 	void update(Vector2f viewCenter, unsigned int score);
 	void render(RenderTarget* target);
 };
-

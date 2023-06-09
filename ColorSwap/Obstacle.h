@@ -24,4 +24,3 @@ public:
 	virtual void renderObstacle(RenderTarget* target);
 	void render(RenderTarget* target);
 };
-

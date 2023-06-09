@@ -17,4 +17,3 @@ public:
 	void update();
 	void render(RenderTarget* target);
 };
-

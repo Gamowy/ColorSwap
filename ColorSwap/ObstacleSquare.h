@@ -14,4 +14,3 @@ public:
     void update();
     void renderObstacle(RenderTarget* target);
 };
-
