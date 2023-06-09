@@ -35,6 +35,13 @@ private:
 	Texture starTexture;
 	Texture colorSwitchTexture;
 	Font font;
+	SoundBuffer jumpSoundFile;
+	SoundBuffer getPointSoundFile;
+	SoundBuffer gameOverSoundFile;
+	Music backgroundMusic;
+
+	Sound getPointSound;
+	Sound gameOverSound;
 
 	//Private methods
 	void initVariables();

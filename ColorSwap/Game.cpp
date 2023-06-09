@@ -5,12 +5,17 @@ void Game::initVariables()
 {
 	gameStatus = GameState::Play;
 	window = nullptr;
-	player = new Player();
+	player = new Player(jumpSoundFile);
 	view = new View();
 	score = 0;
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
-  
+	getPointSound.setBuffer(getPointSoundFile);
+	gameOverSound.setBuffer(gameOverSoundFile);
+	gameOverSound.setVolume(25.f);
+	backgroundMusic.setLoop(true);
+	backgroundMusic.setVolume(25.f);
+
 	//Create a view and center it on player
 	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -50,7 +55,11 @@ void Game::loadFiles()
 			windowIcon.loadFromFile("Assets/Images/icon.png") &&
 			starTexture.loadFromFile("Assets/Images/star.png") &&
 			colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png") &&
-			font.loadFromFile("Assets/Fonts/Exo-Regular.ttf")
+			font.loadFromFile("Assets/Fonts/Exo-Regular.ttf") &&
+			jumpSoundFile.loadFromFile("Assets/Sounds/jump.ogg")&&
+			getPointSoundFile.loadFromFile("Assets/Sounds/getPoint.ogg")&&
+			gameOverSoundFile.loadFromFile("Assets/Sounds/gameOver.ogg") &&
+			backgroundMusic.openFromFile("Assets/Sounds/background.ogg")
 			))
 			throw (std::runtime_error(output.str()));
 	}
@@ -95,11 +104,14 @@ void Game::checkColisions()
 		{
 			std::cout << "Game over\n";
 			gameStatus = GameState::GameOver;
+			backgroundMusic.stop();
+			gameOverSound.play();
 		}
 
 		if (obstacles.at(i)->checkStarColision(player->getBounds()))
 		{
 			score++;
+			getPointSound.play();
 		}
 
 		if (obstacles.at(i)->checkSwitchColision(player->getBounds()))
@@ -160,6 +172,8 @@ void Game::checkOutOfMapCondition()
 	{
 		std::cout << "Game over\n";
 		gameStatus = GameState::GameOver;
+		backgroundMusic.stop();
+		gameOverSound.play();
 	}
 }
 
@@ -168,6 +182,7 @@ Game::Game()
 	loadFiles();
 	initVariables();
 	initWindow();
+	backgroundMusic.play();
 }
 
 Game::~Game()

@@ -13,6 +13,7 @@ void Player::move(RenderWindow* window)
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
 		startedJumping = true;
+		jumpSound.play();
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Space)==false && Mouse::isButtonPressed(Mouse::Left) == false)
 	{
@@ -32,9 +33,10 @@ bool Player::checkMousePosition(RenderWindow* window)
 	return false;
 }
 
-Player::Player()
+Player::Player(SoundBuffer& jumpSoundFile)
 {
-	
+	jumpSound.setBuffer(jumpSoundFile);
+	jumpSound.setVolume(15.f);
 	hitbox.setSize(Vector2f(22.5f,22.5f));
 	hitbox.setOrigin(hitbox.getSize().x/2.f, hitbox.getSize().y / 2.f);
 	switchColor();
