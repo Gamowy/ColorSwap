@@ -57,7 +57,7 @@ ObstacleWindmill::ObstacleWindmill(float yPosition, Texture& starTexture, Textur
 
 ObstacleWindmill::~ObstacleWindmill()
 {
-	delete rectangles;
+	delete[] rectangles;
 }
 
 bool ObstacleWindmill::checkObstacleColision(RectangleShape player, Color playerColor)
