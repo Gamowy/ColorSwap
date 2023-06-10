@@ -3,11 +3,11 @@
 
 void Game::initVariables()
 {
-	gameStatus = GameState::Play;
+	gameStatus = GameState::Menu;
 	window = nullptr;
-	player = new Player(jumpSoundFile);
-	view = new View();
-	score = 0;
+	player = nullptr;
+	view = nullptr;
+	
 	starTexture.setSmooth(true);
 	colorSwitchTexture.setSmooth(true);
 	getPointSound.setBuffer(getPointSoundFile);
@@ -15,13 +15,9 @@ void Game::initVariables()
 	gameOverSound.setVolume(25.f);
 	backgroundMusic.setLoop(true);
 	backgroundMusic.setVolume(25.f);
-
-	//Create a view and center it on player
-	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
-	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
-	//create first obstacle
-	obstacleGenerator();
+	
+	//tymczasowo dopoki nie ma menu
+	initNewGame();
 }
 
 void Game::initWindow()
@@ -33,6 +29,44 @@ void Game::initWindow()
 	window->setIcon(this->windowIcon.getSize().x, this->windowIcon.getSize().y, this->windowIcon.getPixelsPtr());
 	window->setFramerateLimit(FRAME_RATE);
 	pointCounter = new PointCounter(font);
+}
+
+void Game::initNewGame()
+{
+	player = new Player(jumpSoundFile);
+	score = 0;
+
+	//Create a view and center it on player
+	view = new View();
+	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
+	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	//create first obstacle
+	obstacleGenerator();
+
+	backgroundMusic.play();
+	gameStatus = GameState::Play;
+}
+
+void Game::gameOver()
+{
+	delete player;
+	player = nullptr;
+	delete view;
+	view = nullptr;
+	
+	//clear obstacle container
+	for (int i = 0; i < obstacles.size(); i++)
+	{
+		delete obstacles.at(i);
+	}
+	obstacles.clear();
+	obstacles.shrink_to_fit();
+	
+	backgroundMusic.stop();
+	gameOverSound.play();
+	std::cout << "Game over\n";
+	gameStatus = GameState::GameOver;
 }
 
 void Game::initErrorWindow(std::exception e)
@@ -83,6 +117,8 @@ void Game::pollEvents()
 		case Event::KeyPressed:
 			if (ev.key.code == Keyboard::Escape)
 				window->close();
+			if (ev.key.code == Keyboard::Space && gameStatus == GameState::GameOver)
+				initNewGame();
 		}		
 	}
 }	
@@ -102,10 +138,8 @@ void Game::checkColisions()
 	{
 		if (obstacles.at(i)->checkObstacleColision(player->getHitbox(), player->getColor()) )
 		{
-			std::cout << "Game over\n";
-			gameStatus = GameState::GameOver;
-			backgroundMusic.stop();
-			gameOverSound.play();
+			gameOver();
+			return;
 		}
 
 		if (obstacles.at(i)->checkStarColision(player->getBounds()))
@@ -161,6 +195,7 @@ void Game::obstacleRemover()
 	//remove obstacles that are out of view
 	if (!obstacles.empty() && obstacles.front()->getYPosition() > view->getCenter().y + 0.8f * WINDOW_HEIGHT)
 	{
+		delete obstacles.front();
 		obstacles.erase(obstacles.begin());
 	}
 }
@@ -168,12 +203,9 @@ void Game::obstacleRemover()
 void Game::checkOutOfMapCondition()
 {
 	//Check if player is out of bounds
-	if (player->getPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT || (player->getPosition().y < -100000.f))
+	if ((player != nullptr) && (player->getPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT || (player->getPosition().y < -100000.f)))
 	{
-		std::cout << "Game over\n";
-		gameStatus = GameState::GameOver;
-		backgroundMusic.stop();
-		gameOverSound.play();
+		gameOver();
 	}
 }
 
@@ -182,15 +214,12 @@ Game::Game()
 	loadFiles();
 	initVariables();
 	initWindow();
-	backgroundMusic.play();
 }
 
 Game::~Game()
 {
-	delete window;
-	delete player;
-	delete view;
 	delete pointCounter;
+	delete window;	
 }
 
 const bool Game::running() const
@@ -201,18 +230,20 @@ const bool Game::running() const
 void Game::update()
 {
 	pollEvents();
-	switch (gameStatus) {
+	switch (gameStatus) 
+	{
 		case GameState::Play:
 			player->update(window);
 			moveView();
 			pointCounter->update(view->getCenter(), score);	
 			obstacleGenerator();
+			obstacleRemover();
 			updateObstacles();
 			checkColisions();
 			checkOutOfMapCondition();
-			obstacleRemover();		
 			break;
-			
+		case GameState::GameOver:
+			break;
 	}
 }
 
@@ -236,10 +267,16 @@ void Game::render()
 {
 	window->clear(Color(44, 50, 66));
 	//Render game here
-	window->setView(*view);
-	player->render(window);
-	renderObstacles();
-	pointCounter->render(window);
-
+	switch (gameStatus) 
+	{
+		case GameState::Play:
+			window->setView(*view);
+			player->render(window);
+			renderObstacles();
+			pointCounter->render(window);
+		break;
+		case GameState::GameOver:
+			break;
+	}
 	window->display();
 }

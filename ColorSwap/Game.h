@@ -46,6 +46,8 @@ private:
 	//Private methods
 	void initVariables();
 	void initWindow();
+	void initNewGame();
+	void gameOver();
 	void initErrorWindow(std::exception e);
 	void loadFiles();
 	void pollEvents();
