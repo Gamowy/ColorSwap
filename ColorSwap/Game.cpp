@@ -152,6 +152,10 @@ void Game::createObstacle(float yPosition)
 		case 2:
 			obstacles.push_back(new ObstacleSquare(yPosition, starTexture, colorSwitchTexture));
 			break;
+		//line
+		case 3:
+			obstacles.push_back(new ObstacleLine(yPosition, starTexture, colorSwitchTexture));
+			break;
 
 	}
 }

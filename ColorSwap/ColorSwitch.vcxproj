@@ -148,6 +148,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ObstacleLine.cpp" />
     <ClCompile Include="ObstacleRingOfRectangles.cpp" />
     <ClCompile Include="ObstacleSquare.cpp" />
     <ClCompile Include="ObstacleWindmill.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ObstacleLine.h" />
     <ClInclude Include="ObstacleRingOfRectangles.h" />
     <ClInclude Include="ObstacleSquare.h" />
     <ClInclude Include="ObstacleWindmill.h" />
