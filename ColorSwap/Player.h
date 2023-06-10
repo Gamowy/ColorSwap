@@ -18,7 +18,7 @@ private:
 
 	//Private methods
 	void move(RenderWindow* window);
-	bool checkMousePosition(RenderWindow* window);
+	bool mouseOverWindow(RenderWindow* window);
 
 public:
 	Player(SoundBuffer& jumpSoundFile );

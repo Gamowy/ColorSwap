@@ -5,6 +5,7 @@ void Game::initVariables()
 {
 	gameStatus = GameState::Menu;
 	window = nullptr;
+	gameOverScreen = nullptr;
 	player = nullptr;
 	view = nullptr;
 	
@@ -15,9 +16,6 @@ void Game::initVariables()
 	gameOverSound.setVolume(25.f);
 	backgroundMusic.setLoop(true);
 	backgroundMusic.setVolume(25.f);
-	
-	//tymczasowo dopoki nie ma menu
-	initNewGame();
 }
 
 void Game::initWindow()
@@ -29,6 +27,13 @@ void Game::initWindow()
 	window->setIcon(this->windowIcon.getSize().x, this->windowIcon.getSize().y, this->windowIcon.getPixelsPtr());
 	window->setFramerateLimit(FRAME_RATE);
 	pointCounter = new PointCounter(font);
+
+	//Create view
+	view = new View();
+	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	//Crate game over screen
+	gameOverScreen = new GameOverScreen(font);
 }
 
 void Game::initNewGame()
@@ -36,11 +41,9 @@ void Game::initNewGame()
 	player = new Player(jumpSoundFile);
 	score = 0;
 
-	//Create a view and center it on player
-	view = new View();
+	//center view on player
 	view->setCenter(player->getPosition().x, player->getPosition().y - 0.3f * WINDOW_HEIGHT);
-	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
+	
 	//create first obstacle
 	obstacleGenerator();
 
@@ -50,11 +53,15 @@ void Game::initNewGame()
 
 void Game::gameOver()
 {
+	backgroundMusic.stop();
+	gameOverSound.play();
+	sf::sleep(milliseconds(2000));
+	
 	delete player;
 	player = nullptr;
-	delete view;
-	view = nullptr;
 	
+	view->setCenter(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f);
+
 	//clear obstacle container
 	for (int i = 0; i < obstacles.size(); i++)
 	{
@@ -62,10 +69,7 @@ void Game::gameOver()
 	}
 	obstacles.clear();
 	obstacles.shrink_to_fit();
-	
-	backgroundMusic.stop();
-	gameOverSound.play();
-	std::cout << "Game over\n";
+
 	gameStatus = GameState::GameOver;
 }
 
@@ -117,8 +121,6 @@ void Game::pollEvents()
 		case Event::KeyPressed:
 			if (ev.key.code == Keyboard::Escape)
 				window->close();
-			if (ev.key.code == Keyboard::Space && gameStatus == GameState::GameOver)
-				initNewGame();
 		}		
 	}
 }	
@@ -214,11 +216,23 @@ Game::Game()
 	loadFiles();
 	initVariables();
 	initWindow();
+
+	//tymczasowo dopoki nie ma menu
+	initNewGame();
 }
 
 Game::~Game()
 {
+	//clear obstacle container
+	for (int i = 0; i < obstacles.size(); i++)
+	{
+		delete obstacles.at(i);
+	}
+
+	delete player;
 	delete pointCounter;
+	delete view;
+	delete gameOverScreen;
 	delete window;	
 }
 
@@ -243,6 +257,12 @@ void Game::update()
 			checkOutOfMapCondition();
 			break;
 		case GameState::GameOver:
+			gameOverScreen->update(window, score);
+			if (gameOverScreen->backToMenuPressed(window))
+			{
+				sf::sleep(milliseconds(250));
+				initNewGame();
+			}
 			break;
 	}
 }
@@ -266,16 +286,17 @@ void Game::updateObstacles()
 void Game::render()
 {
 	window->clear(Color(44, 50, 66));
+	window->setView(*view);
 	//Render game here
 	switch (gameStatus) 
 	{
 		case GameState::Play:
-			window->setView(*view);
 			player->render(window);
 			renderObstacles();
 			pointCounter->render(window);
 		break;
 		case GameState::GameOver:
+			gameOverScreen->render(window);
 			break;
 	}
 	window->display();

@@ -12,7 +12,6 @@
 #include <Windows.h>
 #include "Collision.h"
 
-
 //Random generator
 static std::random_device rd;
 static std::mt19937 gen(rd());
@@ -21,7 +20,7 @@ static std::mt19937 gen(rd());
 const int FRAME_RATE = 60;
 const int WINDOW_WIDTH = 600; //px
 const int WINDOW_HEIGHT = 800; //px;
-const int FONT_SIZE = 35;
+const int DEFAULT_FONT_SIZE = 35;
 
 const float GRAVITY = 0.5f;
 const float JUMP_HEIGHT = -8.f;

@@ -8,7 +8,7 @@ void Player::move(RenderWindow* window)
 	{
 		ballSpeed.y += GRAVITY;
 	}
-	if ( (Keyboard::isKeyPressed(Keyboard::Space) || (Mouse::isButtonPressed(Mouse::Left) && checkMousePosition(window)==true)) && canJump == true)
+	if ( (Keyboard::isKeyPressed(Keyboard::Space) || (Mouse::isButtonPressed(Mouse::Left) && mouseOverWindow(window))) && canJump == true)
 	{
 		ballSpeed.y = JUMP_HEIGHT;
 		canJump = false;
@@ -23,7 +23,7 @@ void Player::move(RenderWindow* window)
 	hitbox.move(ballSpeed);
 }
 
-bool Player::checkMousePosition(RenderWindow* window)
+bool Player::mouseOverWindow(RenderWindow* window)
 {
 	if (Mouse::getPosition(*window).x >= 0 && Mouse::getPosition(*window).x<=WINDOW_WIDTH &&
 		Mouse::getPosition(*window).y>=0 && Mouse::getPosition(*window).y<=WINDOW_HEIGHT)

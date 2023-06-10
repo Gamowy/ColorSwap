@@ -145,6 +145,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ColorSwap.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ColorSwap.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstacleRingOfRectangles.h" />
