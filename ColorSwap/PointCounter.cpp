@@ -6,7 +6,7 @@ using namespace sf;
 PointCounter::PointCounter(Font& font)
 {
 	message.setFont(font);
-	message.setCharacterSize(FONT_SIZE);
+	message.setCharacterSize(DEFAULT_FONT_SIZE);
 	message.setFillColor(Color::White);
 }
 

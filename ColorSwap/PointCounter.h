@@ -5,6 +5,7 @@ using namespace sf;
 
 class PointCounter
 {
+private:
 	Text message;
 public:
 	PointCounter(Font& font);

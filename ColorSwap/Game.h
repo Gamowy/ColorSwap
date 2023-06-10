@@ -1,5 +1,6 @@
 #pragma once
 #include "ColorSwap.h"
+#include "GameOverScreen.h"
 #include "Player.h"
 #include "Obstacle.h"
 #include "ObstacleWindmill.h"
@@ -29,6 +30,7 @@ private:
 	Event ev;
 	GameState gameStatus;
 	Player* player;
+	GameOverScreen* gameOverScreen;
 	std::vector<Obstacle*> obstacles;
 
 	//Files to load
@@ -47,6 +49,8 @@ private:
 	//Private methods
 	void initVariables();
 	void initWindow();
+	void initNewGame();
+	void gameOver();
 	void initErrorWindow(std::exception e);
 	void loadFiles();
 	void pollEvents();
