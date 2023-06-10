@@ -20,7 +20,7 @@ void Game::initVariables()
 
 void Game::initWindow()
 {
-	//Create window
+	//create window
 	videoMode.width = WINDOW_WIDTH;
 	videoMode.height = WINDOW_HEIGHT;
 	window = new RenderWindow(VideoMode(this->videoMode), "Color Swap", Style::Titlebar | Style::Close);
@@ -28,11 +28,11 @@ void Game::initWindow()
 	window->setFramerateLimit(FRAME_RATE);
 	pointCounter = new PointCounter(font);
 
-	//Create view
+	//create view
 	view = new View();
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	//Crate game over screen
+	//crate game over screen
 	gameOverScreen = new GameOverScreen(font);
 }
 
@@ -70,12 +70,14 @@ void Game::gameOver()
 	obstacles.clear();
 	obstacles.shrink_to_fit();
 
+
+	gameOverScreen->setScores(score);
 	gameStatus = GameState::GameOver;
 }
 
 void Game::initErrorWindow(std::exception e)
 {
-	//Create error window (windows specific)
+	//create error window (windows specific)
 	std::string string = e.what();
 	std::wstring wstring(string.begin(), string.end());
 	LPCWSTR errorMessage = wstring.c_str();
@@ -87,7 +89,7 @@ void Game::loadFiles()
 	std::ostringstream output;
 	sf::err().rdbuf(output.rdbuf());
 
-	//Check if files loaded correctly
+	//check if files loaded correctly
 	try {
 		if (!(
 			windowIcon.loadFromFile("Assets/Images/icon.png") &&
@@ -127,7 +129,7 @@ void Game::pollEvents()
 
 void Game::moveView()
 {
-	//Move view up when player moves up
+	//move view up when player moves up
 	if (player->getPosition().y <= view->getCenter().y + 0.1f * WINDOW_HEIGHT)
 	{
 		view->move(player->getSpeed());
@@ -208,7 +210,7 @@ void Game::obstacleRemover()
 
 void Game::checkOutOfMapCondition()
 {
-	//Check if player is out of bounds
+	//check if player is out of bounds
 	if ((player != nullptr) && (player->getPosition().y > view->getCenter().y + 0.6f * WINDOW_HEIGHT || (player->getPosition().y < -100000.f)))
 	{
 		gameOver();
@@ -240,6 +242,22 @@ Game::~Game()
 	delete window;	
 }
 
+void Game::renderObstacles()
+{
+	for (int i = 0; i < obstacles.size(); i++)
+	{
+		obstacles.at(i)->render(window);
+	}
+}
+
+void Game::updateObstacles()
+{
+	for (int i = 0; i < obstacles.size(); i++)
+	{
+		obstacles.at(i)->update();
+	}
+}
+
 const bool Game::running() const
 {
 	return window->isOpen();
@@ -261,7 +279,7 @@ void Game::update()
 			checkOutOfMapCondition();
 			break;
 		case GameState::GameOver:
-			gameOverScreen->update(window, score);
+			gameOverScreen->update(window);
 			if (gameOverScreen->backToMenuPressed(window))
 			{
 				sf::sleep(milliseconds(250));
@@ -271,22 +289,6 @@ void Game::update()
 	}
 }
 
-void Game::renderObstacles()
-{
-	for (int i = 0; i < obstacles.size(); i++)
-	{
-		obstacles.at(i)->render(window);
-	}
-}
-
-void Game::updateObstacles()
-{
-	for (int i = 0; i < obstacles.size(); i++)
-	{
-		obstacles.at(i)->update();
-	}
-}
-  
 void Game::render()
 {
 	window->clear(Color(44, 50, 66));

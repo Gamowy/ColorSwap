@@ -20,7 +20,8 @@ public:
 	virtual ~GameOverScreen();
 
 	bool backToMenuPressed(RenderWindow* window);
-	void update(RenderWindow* window, unsigned int score, unsigned int highScore = 0);
+	void setScores(unsigned int score, unsigned int highScore = 0);
+	void update(RenderWindow* window);
 	void render(RenderTarget* target);
 };
 

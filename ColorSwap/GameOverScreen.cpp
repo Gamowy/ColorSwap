@@ -17,12 +17,14 @@ GameOverScreen::GameOverScreen(Font& font)
 	scoreText.setFillColor(Color::White);
 	scoreText.setPosition(100.f, 250.f);
 	
+	
 	//High Score text
 	highScoreText.setFont(font);
 	highScoreText.setCharacterSize(DEFAULT_FONT_SIZE);
 	highScoreText.setFillColor(Color::White);
 	highScoreText.setPosition(100.f, 300.f);
 	highScoreText.setFillColor(COLOR_SWAP_CYAN);
+	
 ;	
 	//Back to menu text
 	backToMenuText.setFont(font);
@@ -56,11 +58,14 @@ bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 	return false;
 }
 
-void GameOverScreen::update(RenderWindow* window, unsigned int score, unsigned int highScore)
+void GameOverScreen::setScores(unsigned int score, unsigned int highScore)
 {
 	scoreText.setString("Score: " + std::to_string(score));
 	highScoreText.setString("High-Score: " + std::to_string(highScore));
+}
 
+void GameOverScreen::update(RenderWindow* window)
+{
 	if (mouseOverButton(window))
 	{
 		backToMenuText.setFillColor(COLOR_SWAP_YELLOW);
