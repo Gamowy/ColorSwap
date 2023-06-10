@@ -10,10 +10,11 @@ private:
 	Text scoreText;
 	Text highScoreText;
 	Text backToMenuText;
+	String nickname;
+	String scoreDate;
 
 	//Private methods
 	bool mouseOverButton(RenderWindow* window);
-	
 
 public:
 	GameOverScreen(Font& font);

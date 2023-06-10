@@ -19,7 +19,7 @@ ObstacleRingOfRectangles::ObstacleRingOfRectangles(float yPosition, Texture& sta
 			rectangles[index].setSize(Vector2f(25.f, 25.f));
 			rectangles[index].setOrigin(rectangles[index].getSize().x / 2.f - 90.f, rectangles[index].getSize().y / 2.f);
 			rectangles[index].setPosition(center.x - rectangles[index].getSize().x / 2, center.y);
-			rectangles[index].setRotation(index * 30);
+			rectangles[index].setRotation(index * 30.f);
 
 			if (index <= 2)
 			{

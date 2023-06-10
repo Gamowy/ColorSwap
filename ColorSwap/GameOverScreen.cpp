@@ -17,7 +17,6 @@ GameOverScreen::GameOverScreen(Font& font)
 	scoreText.setFillColor(Color::White);
 	scoreText.setPosition(100.f, 250.f);
 	
-	
 	//High Score text
 	highScoreText.setFont(font);
 	highScoreText.setCharacterSize(DEFAULT_FONT_SIZE);
@@ -25,7 +24,6 @@ GameOverScreen::GameOverScreen(Font& font)
 	highScoreText.setPosition(100.f, 300.f);
 	highScoreText.setFillColor(COLOR_SWAP_CYAN);
 	
-;	
 	//Back to menu text
 	backToMenuText.setFont(font);
 	backToMenuText.setCharacterSize(DEFAULT_FONT_SIZE);
@@ -33,6 +31,18 @@ GameOverScreen::GameOverScreen(Font& font)
 	backToMenuText.setStyle(Text::Bold);
 	backToMenuText.setPosition(125.f, 500.f);
 ;	backToMenuText.setString("-> BACK TO MENU <-");
+
+	//Username
+	wchar_t usernameBuffer[UNLEN+1];
+	DWORD username_len = UNLEN + 1;
+	GetUserName(usernameBuffer, &username_len);
+	std::wstring username(usernameBuffer);
+	nickname = username;
+
+	//Time
+	auto timeBuffer = std::chrono::system_clock::now();
+	time_t time = std::chrono::system_clock::to_time_t(timeBuffer);
+	scoreDate = std::ctime(&time);
 }
 
 GameOverScreen::~GameOverScreen()
