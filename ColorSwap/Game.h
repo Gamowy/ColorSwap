@@ -8,6 +8,7 @@
 #include "ObstacleSquare.h"
 #include "ObstacleLine.h"
 #include "PointCounter.h"
+#include"MainMenu.h"
 
 using namespace sf;
 
@@ -24,6 +25,7 @@ private:
 	VideoMode videoMode;
 	View* view;
 	PointCounter* pointCounter;
+	MainMenu* menu;
 
 	//Game variables
 	unsigned int score;

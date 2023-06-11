@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="ColorSwap.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ColorSwap.h</PrecompiledHeaderFile>
@@ -148,6 +149,7 @@
     <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ObstacleLine.cpp" />
     <ClCompile Include="ObstacleRingOfRectangles.cpp" />
@@ -157,11 +159,13 @@
     <ClCompile Include="PointCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ColorSwap.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstacleLine.h" />
     <ClInclude Include="ObstacleRingOfRectangles.h" />

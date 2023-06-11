@@ -32,8 +32,11 @@ void Game::initWindow()
 	view = new View();
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	//crate game over screen
+	//create game over screen
 	gameOverScreen = new GameOverScreen(font);
+
+	//create menu
+	menu = new MainMenu(font);
 }
 
 void Game::initNewGame()
@@ -245,7 +248,7 @@ Game::Game()
 	initWindow();
 
 	//tymczasowo dopoki nie ma menu
-	initNewGame();
+	//initNewGame();
 }
 
 Game::~Game()
@@ -260,6 +263,7 @@ Game::~Game()
 	delete pointCounter;
 	delete view;
 	delete gameOverScreen;
+	delete menu;
 	delete window;	
 }
 
@@ -289,6 +293,18 @@ void Game::update()
 	pollEvents();
 	switch (gameStatus) 
 	{
+		case GameState::Menu:
+			view->setCenter(WINDOW_WIDTH/2.f, WINDOW_HEIGHT/2.f);
+			menu->update(window);
+			if (menu->playButtonPressed(window))
+			{
+				initNewGame();
+			}
+			if (menu->exitButtonPressed(window))
+			{
+				window->close();
+			}
+			break;
 		case GameState::Play:
 			player->update(window);
 			moveView();
@@ -304,7 +320,7 @@ void Game::update()
 			if (gameOverScreen->backToMenuPressed(window))
 			{
 				sf::sleep(milliseconds(250));
-				initNewGame();
+				gameStatus = GameState::Menu;
 			}
 			break;
 	}
@@ -317,6 +333,9 @@ void Game::render()
 	//Render game here
 	switch (gameStatus) 
 	{
+		case GameState::Menu:
+			menu->render(window);
+		break;
 		case GameState::Play:
 			player->render(window);
 			renderObstacles();
