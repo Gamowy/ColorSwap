@@ -88,7 +88,7 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 	for (int i = 0; i < 3; i++)
 	{
 		std::getline(scoresFile, intBuffer);
-		intBuffer = crypt(intBuffer);
+		intBuffer = crypt(intBuffer); //decrypt buffer
 		records[i].score = stoi(intBuffer);
 
 		std::getline(scoresFile, records[i].nickname);
@@ -106,8 +106,8 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 				std::swap(records[1], records[2]);
 			}
 			records[i].score = score;
-			records[i].nickname = nickname;
-			records[i].date = currentDate;
+			records[i].nickname = crypt(nickname); //encrypt nickname
+			records[i].date = crypt(currentDate); //encrypt date
 			scoreSaved = true;
 		}
 	}
@@ -116,9 +116,9 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 	//save new scores to file
 	for (int i = 0; i < 3; i++)
 	{
-		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl;
-		scoresFile << crypt(records[i].nickname) << std::endl;
-		scoresFile << crypt(records[i].date) << std::endl;
+		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl; //crypt score
+		scoresFile << records[i].nickname << std::endl;
+		scoresFile << records[i].date << std::endl;
 	}
 	
 	//set score text
