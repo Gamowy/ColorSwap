@@ -3,13 +3,6 @@
 
 using namespace sf;
 
-//holds records of high scores from data.dat file
-struct FileRecord {
-	int score = 0;
-	std::wstring nickname;
-	std::wstring date;
-};
-
 class GameOverScreen
 {
 private:
