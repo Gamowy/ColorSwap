@@ -37,12 +37,12 @@ GameOverScreen::GameOverScreen(Font& font)
 	DWORD username_len = UNLEN + 1;
 	GetUserName(usernameBuffer, &username_len);
 	std::wstring username(usernameBuffer);
-	nickname = username;
+	newNickname = username;
 
 	//Time
 	auto timeBuffer = std::chrono::system_clock::now();
 	time_t time = std::chrono::system_clock::to_time_t(timeBuffer);
-	scoreDate = std::ctime(&time);
+	newDate = std::ctime(&time);
 }
 
 GameOverScreen::~GameOverScreen()
@@ -59,14 +59,6 @@ bool GameOverScreen::mouseOverButton(RenderWindow* window)
 	return false;
 }
 
-//XOR cipher
-std::wstring GameOverScreen::crypt(std::wstring str)
-{
-	std::wstring result = str;
-	for (int i = 0; i < result.size(); i++) result[i] = str[i] ^ 83;
-	return result;
-}
-
 bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Enter) || (Mouse::isButtonPressed(Mouse::Left) && mouseOverButton(window)))
@@ -78,25 +70,29 @@ bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 
 void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 {
-	bool scoreSaved = false;
 	fileRecord records[3];
-	std::wstring intBuffer;
-	std::wstring currentDate(scoreDate.begin(), scoreDate.end()-1);
+	std::wstring scoreBuffer;
+	std::wstring currentDate(newDate.begin(), newDate.end()-1);
 
 	//read file
 	scoresFile.open("Assets/data.dat");
 	scoresFile.seekg(0);
 	for (int i = 0; i < 3; i++)
 	{
-		std::getline(scoresFile, intBuffer);
-		intBuffer = crypt(intBuffer); //decrypt buffer
-		records[i].score = stoi(intBuffer);
-
+		//save score from file to buffer, decrypt it and save to record
+		std::getline(scoresFile, scoreBuffer);
+		scoreBuffer = crypt(scoreBuffer); 
+		records[i].score = stoi(scoreBuffer);
+		
+		//save nickname and date from file
 		std::getline(scoresFile, records[i].nickname);
 		std::getline(scoresFile, records[i].date);
+	}
 
-		//save current score to records if higher then previous scores 
-		if (!scoreSaved && score > records[i].score)
+	//save current score to records if higher then one of previous scores 
+	for (int i = 0; i < 3; i++)
+	{
+		if (score > records[i].score)
 		{
 			if (i == 0)
 			{
@@ -107,21 +103,24 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 			{
 				std::swap(records[1], records[2]);
 			}
-			
+
+			//encrypt new record nickname and date
 			records[i].score = score;
-			records[i].nickname = crypt(nickname); //encrypt nickname
-			records[i].date = crypt(currentDate); //encrypt date
-			scoreSaved = true;
+			records[i].nickname = crypt(newNickname);
+			records[i].date = crypt(currentDate);
+			break;
 		}
 	}
-	scoresFile.seekg(0);
 
 	//save new scores to file
+	scoresFile.seekg(0);
 	for (int i = 0; i < 3; i++)
 	{
-		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl; //encrypt score
-		scoresFile << records[i].nickname << std::endl;
-		scoresFile << records[i].date << std::endl;
+		//save score to file as encrypted wstring
+		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl;
+		//nickname and date are already encrypted
+		scoresFile << records[i].nickname << std::endl; 
+		scoresFile << records[i].date << std::endl; 
 	}
 	scoresFile.close();
 	

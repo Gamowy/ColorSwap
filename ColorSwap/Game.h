@@ -52,7 +52,7 @@ private:
 	void initWindow();
 	void initNewGame();
 	void gameOver();
-	void initErrorWindow(std::exception e);
+	void initErrorWindow(std::string error);
 	void loadFiles();
 	void pollEvents();
 	void moveView();

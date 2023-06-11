@@ -70,16 +70,23 @@ void Game::gameOver()
 	obstacles.clear();
 	obstacles.shrink_to_fit();
 
-
-	gameOverScreen->setScores(scoresFile, score);
+	try
+	{
+		gameOverScreen->setScores(scoresFile, score);
+	}
+	catch (std::exception e)
+	{
+		gameStatus = GameState::Error;
+		initErrorWindow("Data.dat file has been corrupted!");
+		exit(0);
+	}
 	gameStatus = GameState::GameOver;
 }
 
-void Game::initErrorWindow(std::exception e)
+void Game::initErrorWindow(std::string error)
 {
-	//create error window (windows specific)
-	std::string string = e.what();
-	std::wstring wstring(string.begin(), string.end());
+	//create error window
+	std::wstring wstring(error.begin(), error.end());
 	LPCWSTR errorMessage = wstring.c_str();
 	MessageBox(NULL, errorMessage, L"An error has occured!", MB_ICONERROR | MB_OK);
 }
@@ -102,28 +109,27 @@ void Game::loadFiles()
 			backgroundMusic.openFromFile("Assets/Sounds/background.ogg")
 			))
 			throw std::runtime_error(output.str());
-		
+
+			//open or create .dat file
+			scoresFile.open("Assets/data.dat");
+			if (!scoresFile.is_open())
+			{
+				scoresFile.open("Assets/data.dat", std::ios::out);
+				for (int i = 0; i < 3; i++)
+				{
+					scoresFile << L"c" << std::endl;
+					scoresFile << L"~~~" << std::endl;
+					scoresFile << L"~~~" << std::endl;
+				}
+			}
+			scoresFile.close();
 	}
 	catch (std::runtime_error e)
 	{
-		gameStatus = GameState::GameOver;
-		initErrorWindow(e);
+		gameStatus = GameState::Error;
+		initErrorWindow(e.what());
 		exit(0);
 	}
-	
-	//open or create .dat file
-	scoresFile.open("Assets/data.dat");
-	if (!scoresFile.is_open())
-	{
-		scoresFile.open("Assets/data.dat", std::ios::out);
-		for (int i = 0; i < 3; i++)
-		{
-			scoresFile << L"c" << std::endl;
-			scoresFile << L"~~~" << std::endl;
-			scoresFile << L"~~~" << std::endl;
-		}
-	}
-	scoresFile.close();
 }
 
 void Game::pollEvents()
