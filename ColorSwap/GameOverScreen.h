@@ -3,7 +3,8 @@
 
 using namespace sf;
 
-struct fileRecord {
+//holds records of high scores from data.dat file
+struct FileRecord {
 	int score = 0;
 	std::wstring nickname;
 	std::wstring date;

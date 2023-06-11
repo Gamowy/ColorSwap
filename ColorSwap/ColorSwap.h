@@ -16,7 +16,7 @@
 #include <lmcons.h>
 #include "Collision.h"
 
-//xor wstring cipher for file read/write
+//XOR wstring cipher for file read/write
 static std::wstring crypt(std::wstring str)
 {
 	std::wstring result = str;

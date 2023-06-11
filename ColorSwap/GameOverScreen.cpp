@@ -70,7 +70,7 @@ bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 
 void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 {
-	fileRecord records[3];
+	FileRecord records[3];
 	std::wstring scoreBuffer;
 	std::wstring currentDate(newDate.begin(), newDate.end()-1);
 
