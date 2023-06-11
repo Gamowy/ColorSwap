@@ -97,14 +97,16 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 		//save current score to records if higher then previous scores 
 		if (!scoreSaved && score > records[i].score)
 		{
-			switch (i)
+			if (i == 0)
 			{
-			case 0:
 				std::swap(records[1], records[2]);
 				std::swap(records[0], records[1]);
-			case 1:
+			}
+			else if (i == 1)
+			{
 				std::swap(records[1], records[2]);
 			}
+			
 			records[i].score = score;
 			records[i].nickname = crypt(nickname); //encrypt nickname
 			records[i].date = crypt(currentDate); //encrypt date
@@ -116,7 +118,7 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 	//save new scores to file
 	for (int i = 0; i < 3; i++)
 	{
-		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl; //crypt score
+		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl; //encrypt score
 		scoresFile << records[i].nickname << std::endl;
 		scoresFile << records[i].date << std::endl;
 	}
