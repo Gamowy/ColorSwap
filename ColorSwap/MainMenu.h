@@ -1,6 +1,7 @@
 #pragma once
 #include "ColorSwap.h"
 #include "Button.h"
+#include "ScoresFile.h"
 
 using namespace sf;
 
@@ -11,11 +12,14 @@ class MainMenu
 	MenuPage currentPage;
 	Text title[5];
 	Text howToPlayMessage;
+	Text scoreboardMessage;
 	Button play;
 	Button howToPlay;
 	Button scoreboard;
 	Button exit;
 	Button back;
+	ScoresFile leaderboard;
+	FileRecord records[3];
 public:
 	MainMenu(Font &font);
 	virtual ~MainMenu();
@@ -25,6 +29,8 @@ public:
 	bool exitButtonPressed(RenderWindow* window);
 	void backButtonPressed(RenderWindow* window);
 	void setHowToPlayMessage(Font& font);
+	void getScores();
+	void setScoreboardMessage();
 	void render(RenderTarget* target);
 	void update(RenderWindow* window);
 };

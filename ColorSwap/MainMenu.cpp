@@ -63,6 +63,11 @@ MainMenu::MainMenu(Font& font)
 	back.buttonText.setPosition(WINDOW_WIDTH / 2.f - back.buttonText.getLocalBounds().width / 2.f, WINDOW_HEIGHT - 100.f);
 
 	setHowToPlayMessage(font);
+
+	scoreboardMessage.setFont(font);
+	scoreboardMessage.setCharacterSize(DEFAULT_FONT_SIZE);
+	scoreboardMessage.setFillColor(Color::White);
+	setScoreboardMessage();
 }
 
 MainMenu::~MainMenu()
@@ -90,6 +95,7 @@ void MainMenu::scoreboardButtonPressed(RenderWindow* window)
 {
 	if(currentPage == MenuPage::Main && scoreboard.isPressed(window))
 	{
+		setScoreboardMessage();
 		currentPage = MenuPage::Scoreboard;
 	}
 }
@@ -114,16 +120,38 @@ void MainMenu::backButtonPressed(RenderWindow* window)
 void MainMenu::setHowToPlayMessage(Font& font)
 {
 	std::string message;
-	message.append("					 HOW TO PLAY\n\n");
-	message.append("- You can jump using either the left\n  mouse button or spacebar\n");
-	message.append("- The game ends when your ball\n  collides with an obstacle or falls\n  out of view\n");
-	message.append("- You can safely pass through\n  barriers of the same color as your\n  ball\n");
+	message.append("HOW TO PLAY\n\n");
+	message.append("- You can jump using either the left\n  mouse button or spacebar.\n");
+	message.append("- The game ends when your ball\n  collides with an obstacle or falls\n  out of view.\n");
+	message.append("- You can safely pass through\n  barriers of the same color as your\n  ball.\n");
 	message.append("- Your goal is to collect as many\n  stars as you can. Good luck!\n");
 	howToPlayMessage.setFont(font);
 	howToPlayMessage.setCharacterSize(DEFAULT_FONT_SIZE);
 	howToPlayMessage.setFillColor(Color::White);
 	howToPlayMessage.setString(message);
-	howToPlayMessage.setPosition(10.f, 100.f);
+	howToPlayMessage.setPosition(0.f,0.f);
+}
+
+void MainMenu::getScores()
+{
+	for (int index = 0; index <= 2; index++)
+	{
+		records[index] = leaderboard.readRecord(index);
+	}
+}
+
+void MainMenu::setScoreboardMessage()
+{
+	getScores();
+	std::wstring message;
+	message.append(L"SCOREBOARD\n\n");
+	for (int index = 0; index <= 2; index++)
+	{
+		message.append(std::to_wstring(index+1)+ L". ");
+		message.append(records[index].nickname + L"\n");
+		message.append(L"Score: " + std::to_wstring(records[index].score) + L"\n\n");
+	}
+	scoreboardMessage.setString(message);
 }
 
 void MainMenu::render(RenderTarget* target)
@@ -145,6 +173,7 @@ void MainMenu::render(RenderTarget* target)
 		back.render(target);
 		break;
 	case(Scoreboard):
+		target->draw(scoreboardMessage);
 		back.render(target);
 		break;
 	}
