@@ -1,5 +1,7 @@
 #pragma once
 #include "ColorSwap.h"
+#include "Button.h"
+#include "ScoresFile.h"
 
 using namespace sf;
 
@@ -9,19 +11,16 @@ private:
 	Text gameOverText;
 	Text scoreText;
 	Text highScoreText;
-	Text backToMenuText;
+	Button backToMenu;
 	std::wstring newNickname;
 	std::string newDate;
 
-	//Private methods
-	bool mouseOverButton(RenderWindow* window);
-
 public:
-	GameOverScreen(Font& font);
+	GameOverScreen(Font& font, SoundBuffer& hoverSoundFil);
 	virtual ~GameOverScreen();
 
 	bool backToMenuPressed(RenderWindow* window);
-	void setScores(std::wfstream& scoresile, unsigned int score);
+	void setScores(ScoresFile& scoresile, unsigned int score);
 	void update(RenderWindow* window);
 	void render(RenderTarget* target);
 };

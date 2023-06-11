@@ -16,21 +16,6 @@
 #include <lmcons.h>
 #include "Collision.h"
 
-//holds records of high scores from data.dat file
-struct FileRecord {
-	int score = 0;
-	std::wstring nickname;
-	std::wstring date;
-};
-
-//XOR wstring cipher for file read/write
-static std::wstring crypt(std::wstring str)
-{
-	std::wstring result = str;
-	for (int i = 0; i < result.size(); i++) result[i] = str[i] ^ 83;
-	return result;
-}
-
 //Random generator
 static std::random_device rd;
 static std::mt19937 gen(rd());

@@ -32,13 +32,16 @@ void Game::initWindow()
 	view = new View();
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	//crate game over screen
-	gameOverScreen = new GameOverScreen(font);
+	//create game over screen
+	gameOverScreen = new GameOverScreen(font, popSound);
+
+	//create menu
+	menu = new MainMenu(font, popSound);
 }
 
 void Game::initNewGame()
 {
-	player = new Player(jumpSoundFile);
+	player = new Player(popSound);
 	score = 0;
 
 	//center view on player
@@ -59,8 +62,6 @@ void Game::gameOver()
 	
 	delete player;
 	player = nullptr;
-	
-	view->setCenter(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f);
 
 	//clear obstacle container
 	for (int i = 0; i < obstacles.size(); i++)
@@ -72,13 +73,13 @@ void Game::gameOver()
 
 	try
 	{
-		gameOverScreen->setScores(scoresFile, score);
+		gameOverScreen->setScores(*leaderboard, score);
 	}
 	catch (std::exception e)
 	{
 		gameStatus = GameState::Error;
 		initErrorWindow("Data.dat file has been corrupted!");
-		exit(0);
+		window->close();
 	}
 	gameStatus = GameState::GameOver;
 }
@@ -103,26 +104,14 @@ void Game::loadFiles()
 			starTexture.loadFromFile("Assets/Images/star.png") &&
 			colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png") &&
 			font.loadFromFile("Assets/Fonts/Exo-Regular.ttf") &&
-			jumpSoundFile.loadFromFile("Assets/Sounds/jump.ogg")&&
+			popSound.loadFromFile("Assets/Sounds/jump.ogg")&&
 			getPointSoundFile.loadFromFile("Assets/Sounds/getPoint.ogg")&&
 			gameOverSoundFile.loadFromFile("Assets/Sounds/gameOver.ogg") &&
 			backgroundMusic.openFromFile("Assets/Sounds/background.ogg")
 			))
 			throw std::runtime_error(output.str());
 
-			//open or create .dat file
-			scoresFile.open("Assets/data.dat");
-			if (!scoresFile.is_open())
-			{
-				scoresFile.open("Assets/data.dat", std::ios::out);
-				for (int i = 0; i < 3; i++)
-				{
-					scoresFile << L"c" << std::endl;
-					scoresFile << L"~~~" << std::endl;
-					scoresFile << L"~~~" << std::endl;
-				}
-			}
-			scoresFile.close();
+		leaderboard = new ScoresFile();
 	}
 	catch (std::runtime_error e)
 	{
@@ -243,9 +232,6 @@ Game::Game()
 	loadFiles();
 	initVariables();
 	initWindow();
-
-	//tymczasowo dopoki nie ma menu
-	initNewGame();
 }
 
 Game::~Game()
@@ -258,8 +244,10 @@ Game::~Game()
 
 	delete player;
 	delete pointCounter;
+	delete leaderboard;
 	delete view;
 	delete gameOverScreen;
+	delete menu;
 	delete window;	
 }
 
@@ -286,13 +274,27 @@ const bool Game::running() const
 
 void Game::update()
 {
-	pollEvents();
-	switch (gameStatus) 
-	{
+	try {
+		pollEvents();
+		switch (gameStatus)
+		{
+		case GameState::Menu:
+			view->setCenter(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f);
+			menu->update(window);
+			if (menu->playButtonPressed(window))
+			{
+				sf::sleep(milliseconds(250));
+				initNewGame();
+			}
+			if (menu->exitButtonPressed(window))
+			{
+				window->close();
+			}
+			break;
 		case GameState::Play:
 			player->update(window);
 			moveView();
-			pointCounter->update(view->getCenter(), score);	
+			pointCounter->update(view->getCenter(), score);
 			obstacleGenerator();
 			obstacleRemover();
 			updateObstacles();
@@ -300,13 +302,21 @@ void Game::update()
 			checkOutOfMapCondition();
 			break;
 		case GameState::GameOver:
+			view->setCenter(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f);
 			gameOverScreen->update(window);
 			if (gameOverScreen->backToMenuPressed(window))
 			{
 				sf::sleep(milliseconds(250));
-				initNewGame();
+				gameStatus = GameState::Menu;
 			}
 			break;
+		}
+	}
+	catch (std::exception e)
+	{
+		gameStatus = GameState::Error;
+		initErrorWindow("Unexpected error!");
+		window->close();
 	}
 }
 
@@ -317,6 +327,9 @@ void Game::render()
 	//Render game here
 	switch (gameStatus) 
 	{
+		case GameState::Menu:
+			menu->render(window);
+		break;
 		case GameState::Play:
 			player->render(window);
 			renderObstacles();
