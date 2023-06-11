@@ -38,11 +38,6 @@ GameOverScreen::GameOverScreen(Font& font)
 	GetUserName(usernameBuffer, &username_len);
 	std::wstring username(usernameBuffer);
 	newNickname = username;
-
-	//Time
-	auto timeBuffer = std::chrono::system_clock::now();
-	time_t time = std::chrono::system_clock::to_time_t(timeBuffer);
-	newDate = std::ctime(&time);
 }
 
 GameOverScreen::~GameOverScreen()
@@ -70,9 +65,14 @@ bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 
 void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 {
+	//get date when score was achived
+	auto timeBuffer = std::chrono::system_clock::now();
+	time_t time = std::chrono::system_clock::to_time_t(timeBuffer);
+	newDate = std::ctime(&time);
+
 	FileRecord records[3];
 	std::wstring scoreBuffer;
-	std::wstring currentDate(newDate.begin(), newDate.end()-1);
+	std::wstring currentDate(newDate.begin(), newDate.end() - 1);
 
 	//read file
 	scoresFile.open("Assets/data.dat");
