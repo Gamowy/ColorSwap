@@ -229,7 +229,7 @@ Game::Game()
 	initWindow();
 
 	//tymczasowo dopoki nie ma menu
-	gameOver();
+	initNewGame();
 }
 
 Game::~Game()
