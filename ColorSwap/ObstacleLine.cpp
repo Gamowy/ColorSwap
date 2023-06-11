@@ -7,34 +7,34 @@ ObstacleLine::ObstacleLine(float yPosition, Texture& starTexture, Texture& color
 	center.y = yPosition;
 	rectangleSpeed.x = 3.f;
 
-	star->movePosition(-100.f);
-	colorSwitch->movePosition(-180.f);
+	star->movePosition(-10.f);
+	colorSwitch->movePosition(-90.f);
 
 	for (int index = 0; index <= 3; index++)
 	{
 		rectangles[index].setFillColor(colors[index]);
 		rectangles[index].setSize(Vector2f(20.f, 150.f));
 		rectangles[index].rotate(90.f);
-		rectangles[index].setPosition(center.x - 161.f + index * 150.f, center.y);
+		rectangles[index].setPosition(center.x - 161.f + index * 150.f, center.y + 90.f);
 	}
 
 	rectangles[4].setFillColor(COLOR_SWAP_RED);
 	rectangles[4].setSize(Vector2f(20.f, 150.f));
 	rectangles[4].rotate(90.f);
-	rectangles[4].setPosition(center.x - 311.f, center.y);
+	rectangles[4].setPosition(center.x - 311.f, center.y + 90.f);
 
 	for (int index = 5; index <= 8; index++)
 	{
 		rectangles[index].setFillColor(colors[index-5]);
 		rectangles[index].setSize(Vector2f(20.f, 150.f));
 		rectangles[index].rotate(90.f);
-		rectangles[index].setPosition(center.x - 161.f + (index-5) * 150.f, center.y - 180.f);
+		rectangles[index].setPosition(center.x - 161.f + (index-5) * 150.f, center.y - 90.f);
 	}
 
 	rectangles[9].setFillColor(COLOR_SWAP_PURPLE);
 	rectangles[9].setSize(Vector2f(20.f, 150.f));
 	rectangles[9].rotate(90.f);
-	rectangles[9].setPosition(center.x + 439.f, center.y - 180.f);
+	rectangles[9].setPosition(center.x + 439.f, center.y - 90.f);
 	
 }
 
@@ -62,7 +62,7 @@ void ObstacleLine::update()
 		rectangles[index].move(rectangleSpeed);
 		if (rectangles[index].getPosition().x == center.x + 439.f)
 		{
-			rectangles[index].setPosition(center.x - 311.f, center.y);
+			rectangles[index].setPosition(center.x - 311.f, center.y + 90.f);
 		}
 	}
 	rectangleSpeed.x = -3.f;
@@ -71,7 +71,7 @@ void ObstacleLine::update()
 		rectangles[index].move(rectangleSpeed);
 		if (rectangles[index].getPosition().x == center.x - 311.f)
 		{
-			rectangles[index].setPosition(center.x + 439.f, center.y - 180.f);
+			rectangles[index].setPosition(center.x + 439.f, center.y - 90.f);
 		}
 	}
 }

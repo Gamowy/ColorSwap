@@ -36,7 +36,7 @@ bool Player::mouseOverWindow(RenderWindow* window)
 Player::Player(SoundBuffer& jumpSoundFile)
 {
 	jumpSound.setBuffer(jumpSoundFile);
-	jumpSound.setVolume(15.f);
+	jumpSound.setVolume(7.f);
 	hitbox.setSize(Vector2f(22.5f,22.5f));
 	hitbox.setOrigin(hitbox.getSize().x/2.f, hitbox.getSize().y / 2.f);
 	switchColor();
