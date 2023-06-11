@@ -102,11 +102,7 @@ void Game::loadFiles()
 			backgroundMusic.openFromFile("Assets/Sounds/background.ogg")
 			))
 			throw std::runtime_error(output.str());
-		scoresFile.open("Assets/data.dat");
-		if (!scoresFile.good())
-		{
-			throw std::runtime_error("Failed to load data.dat");
-		}
+		
 	}
 	catch (std::runtime_error e)
 	{
@@ -114,6 +110,20 @@ void Game::loadFiles()
 		initErrorWindow(e);
 		exit(0);
 	}
+	
+	//open or create .dat file
+	scoresFile.open("Assets/data.dat");
+	if (!scoresFile.is_open())
+	{
+		scoresFile.open("Assets/data.dat", std::ios::out);
+		for (int i = 0; i < 3; i++)
+		{
+			scoresFile << L"c" << std::endl;
+			scoresFile << L"~~~" << std::endl;
+			scoresFile << L"~~~" << std::endl;
+		}
+	}
+	scoresFile.close();
 }
 
 void Game::pollEvents()
@@ -234,7 +244,6 @@ Game::Game()
 
 Game::~Game()
 {
-	scoresFile.close();
 	//clear obstacle container
 	for (int i = 0; i < obstacles.size(); i++)
 	{

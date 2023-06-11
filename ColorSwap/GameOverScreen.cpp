@@ -84,6 +84,7 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 	std::wstring currentDate(scoreDate.begin(), scoreDate.end()-1);
 
 	//read file
+	scoresFile.open("Assets/data.dat");
 	scoresFile.seekg(0);
 	for (int i = 0; i < 3; i++)
 	{
@@ -122,6 +123,7 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 		scoresFile << records[i].nickname << std::endl;
 		scoresFile << records[i].date << std::endl;
 	}
+	scoresFile.close();
 	
 	//set score text
 	scoreText.setString("Score: " + std::to_string(score));
