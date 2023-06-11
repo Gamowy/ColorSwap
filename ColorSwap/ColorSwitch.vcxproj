@@ -157,6 +157,7 @@
     <ClCompile Include="ObstacleWindmill.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PointCounter.cpp" />
+    <ClCompile Include="ScoresFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PointCounter.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ScoresFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ColorSwap.rc" />

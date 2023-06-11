@@ -123,7 +123,7 @@ void MainMenu::setHowToPlayMessage(Font& font)
 	howToPlayMessage.setCharacterSize(DEFAULT_FONT_SIZE);
 	howToPlayMessage.setFillColor(Color::White);
 	howToPlayMessage.setString(message);
-	howToPlayMessage.setPosition(0, 100.f);
+	howToPlayMessage.setPosition(10.f, 100.f);
 }
 
 void MainMenu::render(RenderTarget* target)

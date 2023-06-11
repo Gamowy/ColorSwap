@@ -3,7 +3,7 @@
 
 GameOverScreen::GameOverScreen(Font& font)
 {
-	//Game Over Text
+	//game Over Text
 	gameOverText.setFont(font);
 	gameOverText.setCharacterSize(64);
 	gameOverText.setFillColor(COLOR_SWAP_RED);
@@ -11,28 +11,28 @@ GameOverScreen::GameOverScreen(Font& font)
 	gameOverText.setPosition(125.f, 100.f);
 	gameOverText.setString("Game Over");
 
-	//Score Text
+	//score Text
 	scoreText.setFont(font);
 	scoreText.setCharacterSize(DEFAULT_FONT_SIZE);
 	scoreText.setFillColor(Color::White);
 	scoreText.setPosition(100.f, 250.f);
 	
-	//High Score text
+	//high Score text
 	highScoreText.setFont(font);
 	highScoreText.setCharacterSize(DEFAULT_FONT_SIZE);
 	highScoreText.setFillColor(Color::White);
 	highScoreText.setPosition(100.f, 300.f);
 	highScoreText.setFillColor(COLOR_SWAP_CYAN);
 	
-	//Back to menu text
-	backToMenuText.setFont(font);
-	backToMenuText.setCharacterSize(DEFAULT_FONT_SIZE);
-	backToMenuText.setFillColor(Color::White);
-	backToMenuText.setStyle(Text::Bold);
-	backToMenuText.setPosition(125.f, 500.f);
-;	backToMenuText.setString("-> BACK TO MENU <-");
+	//back to menu button
+	backToMenu.buttonText.setFont(font);
+	backToMenu.buttonText.setCharacterSize(DEFAULT_FONT_SIZE);
+	backToMenu.buttonText.setFillColor(Color::White);
+	backToMenu.buttonText.setStyle(Text::Bold);
+	backToMenu.buttonText.setPosition(125.f, 500.f);
+	backToMenu.buttonText.setString("--> BACK TO MENU <--");
 
-	//Username
+	//username variable
 	wchar_t usernameBuffer[UNLEN+1];
 	DWORD username_len = UNLEN + 1;
 	GetUserName(usernameBuffer, &username_len);
@@ -44,49 +44,32 @@ GameOverScreen::~GameOverScreen()
 {
 }
 
-bool GameOverScreen::mouseOverButton(RenderWindow* window)
-{
-	if (Mouse::getPosition(*window).x >= backToMenuText.getPosition().x && Mouse::getPosition(*window).x <= backToMenuText.getPosition().x + backToMenuText.getLocalBounds().width &&
-		Mouse::getPosition(*window).y >= backToMenuText.getPosition().y && Mouse::getPosition(*window).y <= backToMenuText.getPosition().y + backToMenuText.getLocalBounds().height + 10.f)
-	{
-		return true;
-	}
-	return false;
-}
-
 bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 {
-	if (Keyboard::isKeyPressed(Keyboard::Enter) || (Mouse::isButtonPressed(Mouse::Left) && mouseOverButton(window)))
+	if (backToMenu.isPressed(window))
 	{
 		return true;
 	}
-	return false;
+	else
+	{
+		return false;
+	}
 }
 
-void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
+void GameOverScreen::setScores(ScoresFile& file, unsigned int score)
 {
-	//get date when score was achived
+	//date variable
 	auto timeBuffer = std::chrono::system_clock::now();
 	time_t time = std::chrono::system_clock::to_time_t(timeBuffer);
 	newDate = std::ctime(&time);
 
 	FileRecord records[3];
-	std::wstring scoreBuffer;
 	std::wstring currentDate(newDate.begin(), newDate.end() - 1);
 
-	//read file
-	scoresFile.open("Assets/data.dat");
-	scoresFile.seekg(0);
+	//read records from file
 	for (int i = 0; i < 3; i++)
 	{
-		//save score from file to buffer, decrypt it and save to record
-		std::getline(scoresFile, scoreBuffer);
-		scoreBuffer = crypt(scoreBuffer); 
-		records[i].score = stoi(scoreBuffer);
-		
-		//save nickname and date from file
-		std::getline(scoresFile, records[i].nickname);
-		std::getline(scoresFile, records[i].date);
+		records[i] = file.readRecord(i);
 	}
 
 	//save current score to records if higher then one of previous scores 
@@ -104,25 +87,15 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 				std::swap(records[1], records[2]);
 			}
 
-			//encrypt new record nickname and date
 			records[i].score = score;
-			records[i].nickname = crypt(newNickname);
-			records[i].date = crypt(currentDate);
+			records[i].nickname = newNickname;
+			records[i].date = currentDate;
 			break;
 		}
 	}
 
 	//save new scores to file
-	scoresFile.seekg(0);
-	for (int i = 0; i < 3; i++)
-	{
-		//save score to file as encrypted wstring
-		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl;
-		//nickname and date are already encrypted
-		scoresFile << records[i].nickname << std::endl; 
-		scoresFile << records[i].date << std::endl; 
-	}
-	scoresFile.close();
+	file.save(records);
 	
 	//set score text
 	scoreText.setString("Score: " + std::to_string(score));
@@ -133,13 +106,13 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 
 void GameOverScreen::update(RenderWindow* window)
 {
-	if (mouseOverButton(window))
+	if (backToMenu.mouseOverButton(window))
 	{
-		backToMenuText.setFillColor(COLOR_SWAP_YELLOW);
+		backToMenu.buttonText.setFillColor(COLOR_SWAP_YELLOW);
 	}
 	else
 	{
-		backToMenuText.setFillColor(Color::White);
+		backToMenu.buttonText.setFillColor(Color::White);
 	}
 }
 
@@ -148,5 +121,5 @@ void GameOverScreen::render(RenderTarget* target)
 	target->draw(gameOverText);
 	target->draw(scoreText);
 	target->draw(highScoreText);
-	target->draw(backToMenuText);
+	backToMenu.render(target);
 }

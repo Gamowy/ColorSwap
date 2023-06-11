@@ -1,5 +1,6 @@
 #pragma once
 #include "ColorSwap.h"
+#include "MainMenu.h"
 #include "GameOverScreen.h"
 #include "Player.h"
 #include "Obstacle.h"
@@ -8,7 +9,7 @@
 #include "ObstacleSquare.h"
 #include "ObstacleLine.h"
 #include "PointCounter.h"
-#include"MainMenu.h"
+#include "ScoresFile.h"
 
 using namespace sf;
 
@@ -36,7 +37,7 @@ private:
 	std::vector<Obstacle*> obstacles;
 
 	//Files to load
-	std::wfstream scoresFile;
+	ScoresFile* leaderboard;
 	Image windowIcon;
 	Texture starTexture;
 	Texture colorSwitchTexture;

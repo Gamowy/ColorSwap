@@ -75,13 +75,13 @@ void Game::gameOver()
 
 	try
 	{
-		gameOverScreen->setScores(scoresFile, score);
+		gameOverScreen->setScores(*leaderboard, score);
 	}
 	catch (std::exception e)
 	{
 		gameStatus = GameState::Error;
 		initErrorWindow("Data.dat file has been corrupted!");
-		exit(0);
+		window->close();
 	}
 	gameStatus = GameState::GameOver;
 }
@@ -113,19 +113,7 @@ void Game::loadFiles()
 			))
 			throw std::runtime_error(output.str());
 
-			//open or create .dat file
-			scoresFile.open("Assets/data.dat");
-			if (!scoresFile.is_open())
-			{
-				scoresFile.open("Assets/data.dat", std::ios::out);
-				for (int i = 0; i < 3; i++)
-				{
-					scoresFile << L"c" << std::endl;
-					scoresFile << L"~~~" << std::endl;
-					scoresFile << L"~~~" << std::endl;
-				}
-			}
-			scoresFile.close();
+		leaderboard = new ScoresFile();
 	}
 	catch (std::runtime_error e)
 	{
@@ -246,9 +234,6 @@ Game::Game()
 	loadFiles();
 	initVariables();
 	initWindow();
-
-	//tymczasowo dopoki nie ma menu
-	//initNewGame();
 }
 
 Game::~Game()
@@ -261,6 +246,7 @@ Game::~Game()
 
 	delete player;
 	delete pointCounter;
+	delete leaderboard;
 	delete view;
 	delete gameOverScreen;
 	delete menu;
@@ -298,6 +284,7 @@ void Game::update()
 			menu->update(window);
 			if (menu->playButtonPressed(window))
 			{
+				sf::sleep(milliseconds(250));
 				initNewGame();
 			}
 			if (menu->exitButtonPressed(window))
