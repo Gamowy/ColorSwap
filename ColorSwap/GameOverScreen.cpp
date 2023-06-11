@@ -59,6 +59,14 @@ bool GameOverScreen::mouseOverButton(RenderWindow* window)
 	return false;
 }
 
+//XOR cipher
+std::wstring GameOverScreen::crypt(std::wstring str)
+{
+	std::wstring result = str;
+	for (int i = 0; i < result.size(); i++) result[i] = str[i] ^ 83;
+	return result;
+}
+
 bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Enter) || (Mouse::isButtonPressed(Mouse::Left) && mouseOverButton(window)))
@@ -80,9 +88,12 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 	for (int i = 0; i < 3; i++)
 	{
 		std::getline(scoresFile, intBuffer);
+		intBuffer = crypt(intBuffer);
 		records[i].score = stoi(intBuffer);
+
 		std::getline(scoresFile, records[i].nickname);
 		std::getline(scoresFile, records[i].date);
+
 		//save current score to records if higher then previous scores 
 		if (!scoreSaved && score > records[i].score)
 		{
@@ -105,12 +116,11 @@ void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 	//save new scores to file
 	for (int i = 0; i < 3; i++)
 	{
-		scoresFile << records[i].score << std::endl;
-		scoresFile << records[i].nickname << std::endl;
-		scoresFile << records[i].date << std::endl;
+		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl;
+		scoresFile << crypt(records[i].nickname) << std::endl;
+		scoresFile << crypt(records[i].date) << std::endl;
 	}
 	
-
 	//set score text
 	scoreText.setString("Score: " + std::to_string(score));
 

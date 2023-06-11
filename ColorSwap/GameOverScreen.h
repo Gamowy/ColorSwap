@@ -26,6 +26,7 @@ public:
 	GameOverScreen(Font& font);
 	virtual ~GameOverScreen();
 
+	std::wstring crypt(std::wstring str);
 	bool backToMenuPressed(RenderWindow* window);
 	void setScores(std::wfstream& scoresile, unsigned int score);
 	void update(RenderWindow* window);
