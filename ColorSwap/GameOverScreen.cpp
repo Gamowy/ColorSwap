@@ -23,7 +23,7 @@ GameOverScreen::GameOverScreen(Font& font)
 	highScoreText.setFillColor(Color::White);
 	highScoreText.setPosition(100.f, 300.f);
 	highScoreText.setFillColor(COLOR_SWAP_CYAN);
-;	
+	
 	//Back to menu text
 	backToMenuText.setFont(font);
 	backToMenuText.setCharacterSize(DEFAULT_FONT_SIZE);
@@ -31,6 +31,18 @@ GameOverScreen::GameOverScreen(Font& font)
 	backToMenuText.setStyle(Text::Bold);
 	backToMenuText.setPosition(125.f, 500.f);
 ;	backToMenuText.setString("-> BACK TO MENU <-");
+
+	//Username
+	wchar_t usernameBuffer[UNLEN+1];
+	DWORD username_len = UNLEN + 1;
+	GetUserName(usernameBuffer, &username_len);
+	std::wstring username(usernameBuffer);
+	nickname = username;
+
+	//Time
+	auto timeBuffer = std::chrono::system_clock::now();
+	time_t time = std::chrono::system_clock::to_time_t(timeBuffer);
+	scoreDate = std::ctime(&time);
 }
 
 GameOverScreen::~GameOverScreen()
@@ -47,6 +59,14 @@ bool GameOverScreen::mouseOverButton(RenderWindow* window)
 	return false;
 }
 
+//XOR cipher
+std::wstring GameOverScreen::crypt(std::wstring str)
+{
+	std::wstring result = str;
+	for (int i = 0; i < result.size(); i++) result[i] = str[i] ^ 83;
+	return result;
+}
+
 bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Enter) || (Mouse::isButtonPressed(Mouse::Left) && mouseOverButton(window)))
@@ -56,11 +76,60 @@ bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 	return false;
 }
 
-void GameOverScreen::update(RenderWindow* window, unsigned int score, unsigned int highScore)
+void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 {
-	scoreText.setString("Score: " + std::to_string(score));
-	highScoreText.setString("High-Score: " + std::to_string(highScore));
+	bool scoreSaved = false;
+	fileRecord records[3];
+	std::wstring intBuffer;
+	std::wstring currentDate(scoreDate.begin(), scoreDate.end()-1);
 
+	//read file
+	scoresFile.seekg(0);
+	for (int i = 0; i < 3; i++)
+	{
+		std::getline(scoresFile, intBuffer);
+		intBuffer = crypt(intBuffer); //decrypt buffer
+		records[i].score = stoi(intBuffer);
+
+		std::getline(scoresFile, records[i].nickname);
+		std::getline(scoresFile, records[i].date);
+
+		//save current score to records if higher then previous scores 
+		if (!scoreSaved && score > records[i].score)
+		{
+			switch (i)
+			{
+			case 0:
+				std::swap(records[1], records[2]);
+				std::swap(records[0], records[1]);
+			case 1:
+				std::swap(records[1], records[2]);
+			}
+			records[i].score = score;
+			records[i].nickname = crypt(nickname); //encrypt nickname
+			records[i].date = crypt(currentDate); //encrypt date
+			scoreSaved = true;
+		}
+	}
+	scoresFile.seekg(0);
+
+	//save new scores to file
+	for (int i = 0; i < 3; i++)
+	{
+		scoresFile << crypt(std::to_wstring(records[i].score)) << std::endl; //crypt score
+		scoresFile << records[i].nickname << std::endl;
+		scoresFile << records[i].date << std::endl;
+	}
+	
+	//set score text
+	scoreText.setString("Score: " + std::to_string(score));
+
+	//set high score text
+	highScoreText.setString("High-Score: " + std::to_string(records[0].score));
+}
+
+void GameOverScreen::update(RenderWindow* window)
+{
 	if (mouseOverButton(window))
 	{
 		backToMenuText.setFillColor(COLOR_SWAP_YELLOW);
