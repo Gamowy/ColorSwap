@@ -3,6 +3,12 @@
 
 using namespace sf;
 
+struct fileRecord {
+	int score = 0;
+	std::wstring nickname;
+	std::wstring date;
+};
+
 class GameOverScreen
 {
 private:
@@ -10,8 +16,8 @@ private:
 	Text scoreText;
 	Text highScoreText;
 	Text backToMenuText;
-	String nickname;
-	String scoreDate;
+	std::wstring nickname;
+	std::string scoreDate;
 
 	//Private methods
 	bool mouseOverButton(RenderWindow* window);
@@ -21,7 +27,7 @@ public:
 	virtual ~GameOverScreen();
 
 	bool backToMenuPressed(RenderWindow* window);
-	void setScores(unsigned int score, unsigned int highScore = 0);
+	void setScores(std::wfstream& scoresile, unsigned int score);
 	void update(RenderWindow* window);
 	void render(RenderTarget* target);
 };

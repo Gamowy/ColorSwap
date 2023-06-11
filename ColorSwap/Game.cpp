@@ -71,7 +71,7 @@ void Game::gameOver()
 	obstacles.shrink_to_fit();
 
 
-	gameOverScreen->setScores(score);
+	gameOverScreen->setScores(scoresFile, score);
 	gameStatus = GameState::GameOver;
 }
 
@@ -101,7 +101,12 @@ void Game::loadFiles()
 			gameOverSoundFile.loadFromFile("Assets/Sounds/gameOver.ogg") &&
 			backgroundMusic.openFromFile("Assets/Sounds/background.ogg")
 			))
-			throw (std::runtime_error(output.str()));
+			throw std::runtime_error(output.str());
+		scoresFile.open("Assets/data.dat");
+		if (!scoresFile.good())
+		{
+			throw std::runtime_error("Failed to load data.dat");
+		}
 	}
 	catch (std::runtime_error e)
 	{
@@ -229,6 +234,7 @@ Game::Game()
 
 Game::~Game()
 {
+	scoresFile.close();
 	//clear obstacle container
 	for (int i = 0; i < obstacles.size(); i++)
 	{

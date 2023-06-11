@@ -68,10 +68,54 @@ bool GameOverScreen::backToMenuPressed(RenderWindow* window)
 	return false;
 }
 
-void GameOverScreen::setScores(unsigned int score, unsigned int highScore)
+void GameOverScreen::setScores(std::wfstream& scoresFile, unsigned int score)
 {
+	bool scoreSaved = false;
+	fileRecord records[3];
+	std::wstring intBuffer;
+	std::wstring currentDate(scoreDate.begin(), scoreDate.end()-1);
+
+	//read file
+	scoresFile.seekg(0);
+	for (int i = 0; i < 3; i++)
+	{
+		std::getline(scoresFile, intBuffer);
+		records[i].score = stoi(intBuffer);
+		std::getline(scoresFile, records[i].nickname);
+		std::getline(scoresFile, records[i].date);
+		//save current score to records if higher then previous scores 
+		if (!scoreSaved && score > records[i].score)
+		{
+			switch (i)
+			{
+			case 0:
+				std::swap(records[1], records[2]);
+				std::swap(records[0], records[1]);
+			case 1:
+				std::swap(records[1], records[2]);
+			}
+			records[i].score = score;
+			records[i].nickname = nickname;
+			records[i].date = currentDate;
+			scoreSaved = true;
+		}
+	}
+	scoresFile.seekg(0);
+
+	//save new scores to file
+	for (int i = 0; i < 3; i++)
+	{
+		scoresFile << records[i].score << std::endl;
+		scoresFile << records[i].nickname << std::endl;
+		scoresFile << records[i].date << std::endl;
+	}
+	
+
+	//set score text
 	scoreText.setString("Score: " + std::to_string(score));
-	highScoreText.setString("High-Score: " + std::to_string(highScore));
+
+	//set high score text
+	highScoreText.setString("High-Score: " + std::to_string(records[0].score));
 }
 
 void GameOverScreen::update(RenderWindow* window)

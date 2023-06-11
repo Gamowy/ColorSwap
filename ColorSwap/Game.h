@@ -34,6 +34,7 @@ private:
 	std::vector<Obstacle*> obstacles;
 
 	//Files to load
+	std::wfstream scoresFile;
 	Image windowIcon;
 	Texture starTexture;
 	Texture colorSwitchTexture;
