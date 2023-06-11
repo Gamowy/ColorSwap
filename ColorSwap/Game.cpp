@@ -33,15 +33,15 @@ void Game::initWindow()
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	//create game over screen
-	gameOverScreen = new GameOverScreen(font);
+	gameOverScreen = new GameOverScreen(font, popSound);
 
 	//create menu
-	menu = new MainMenu(font);
+	menu = new MainMenu(font, popSound);
 }
 
 void Game::initNewGame()
 {
-	player = new Player(jumpSoundFile);
+	player = new Player(popSound);
 	score = 0;
 
 	//center view on player
@@ -62,8 +62,6 @@ void Game::gameOver()
 	
 	delete player;
 	player = nullptr;
-	
-	view->setCenter(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f);
 
 	//clear obstacle container
 	for (int i = 0; i < obstacles.size(); i++)
@@ -106,7 +104,7 @@ void Game::loadFiles()
 			starTexture.loadFromFile("Assets/Images/star.png") &&
 			colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png") &&
 			font.loadFromFile("Assets/Fonts/Exo-Regular.ttf") &&
-			jumpSoundFile.loadFromFile("Assets/Sounds/jump.ogg")&&
+			popSound.loadFromFile("Assets/Sounds/jump.ogg")&&
 			getPointSoundFile.loadFromFile("Assets/Sounds/getPoint.ogg")&&
 			gameOverSoundFile.loadFromFile("Assets/Sounds/gameOver.ogg") &&
 			backgroundMusic.openFromFile("Assets/Sounds/background.ogg")
@@ -276,11 +274,12 @@ const bool Game::running() const
 
 void Game::update()
 {
-	pollEvents();
-	switch (gameStatus) 
-	{
+	try {
+		pollEvents();
+		switch (gameStatus)
+		{
 		case GameState::Menu:
-			view->setCenter(WINDOW_WIDTH/2.f, WINDOW_HEIGHT/2.f);
+			view->setCenter(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f);
 			menu->update(window);
 			if (menu->playButtonPressed(window))
 			{
@@ -295,7 +294,7 @@ void Game::update()
 		case GameState::Play:
 			player->update(window);
 			moveView();
-			pointCounter->update(view->getCenter(), score);	
+			pointCounter->update(view->getCenter(), score);
 			obstacleGenerator();
 			obstacleRemover();
 			updateObstacles();
@@ -303,6 +302,7 @@ void Game::update()
 			checkOutOfMapCondition();
 			break;
 		case GameState::GameOver:
+			view->setCenter(WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f);
 			gameOverScreen->update(window);
 			if (gameOverScreen->backToMenuPressed(window))
 			{
@@ -310,6 +310,13 @@ void Game::update()
 				gameStatus = GameState::Menu;
 			}
 			break;
+		}
+	}
+	catch (std::exception e)
+	{
+		gameStatus = GameState::Error;
+		initErrorWindow("Unexpected error!");
+		window->close();
 	}
 }
 

@@ -1,14 +1,14 @@
 #include "ColorSwap.h"
 #include "GameOverScreen.h"
 
-GameOverScreen::GameOverScreen(Font& font)
+GameOverScreen::GameOverScreen(Font& font, SoundBuffer& hoverSoundFile)
 {
 	//game Over Text
 	gameOverText.setFont(font);
-	gameOverText.setCharacterSize(64);
+	gameOverText.setCharacterSize(DEFAULT_FONT_SIZE * 2.5f);
 	gameOverText.setFillColor(COLOR_SWAP_RED);
 	gameOverText.setStyle(Text::Bold);
-	gameOverText.setPosition(125.f, 100.f);
+	gameOverText.setPosition(76.f, 75.f);
 	gameOverText.setString("Game Over");
 
 	//score Text
@@ -29,8 +29,9 @@ GameOverScreen::GameOverScreen(Font& font)
 	backToMenu.buttonText.setCharacterSize(DEFAULT_FONT_SIZE);
 	backToMenu.buttonText.setFillColor(Color::White);
 	backToMenu.buttonText.setStyle(Text::Bold);
-	backToMenu.buttonText.setPosition(125.f, 500.f);
-	backToMenu.buttonText.setString("--> BACK TO MENU <--");
+	backToMenu.buttonText.setPosition(121.f, 700.f);
+	backToMenu.buttonText.setString("BACK TO MAIN MENU");
+	backToMenu.setHoverSound(hoverSoundFile);
 
 	//username variable
 	wchar_t usernameBuffer[UNLEN+1];
@@ -106,14 +107,7 @@ void GameOverScreen::setScores(ScoresFile& file, unsigned int score)
 
 void GameOverScreen::update(RenderWindow* window)
 {
-	if (backToMenu.mouseOverButton(window))
-	{
-		backToMenu.buttonText.setFillColor(COLOR_SWAP_YELLOW);
-	}
-	else
-	{
-		backToMenu.buttonText.setFillColor(Color::White);
-	}
+	backToMenu.update(window);
 }
 
 void GameOverScreen::render(RenderTarget* target)

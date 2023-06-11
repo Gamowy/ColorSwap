@@ -9,6 +9,7 @@ enum MenuPage { Main, HowToPlay, Scoreboard };
 
 class MainMenu
 {
+private:
 	MenuPage currentPage;
 	Text title[5];
 	Text howToPlayMessage;
@@ -20,8 +21,9 @@ class MainMenu
 	Button back;
 	ScoresFile leaderboard;
 	FileRecord records[3];
+
 public:
-	MainMenu(Font &font);
+	MainMenu(Font &font, SoundBuffer& hoverSoundFile);
 	virtual ~MainMenu();
 	bool playButtonPressed(RenderWindow* window);
 	void howToPlayButtonPressed(RenderWindow* window);

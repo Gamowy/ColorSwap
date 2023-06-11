@@ -27,13 +27,13 @@ private:
 	View* view;
 	PointCounter* pointCounter;
 	MainMenu* menu;
+	GameOverScreen* gameOverScreen;
 
 	//Game variables
 	unsigned int score;
 	Event ev;
 	GameState gameStatus;
 	Player* player;
-	GameOverScreen* gameOverScreen;
 	std::vector<Obstacle*> obstacles;
 
 	//Files to load
@@ -42,7 +42,7 @@ private:
 	Texture starTexture;
 	Texture colorSwitchTexture;
 	Font font;
-	SoundBuffer jumpSoundFile;
+	SoundBuffer popSound;
 	SoundBuffer getPointSoundFile;
 	SoundBuffer gameOverSoundFile;
 	Music backgroundMusic;

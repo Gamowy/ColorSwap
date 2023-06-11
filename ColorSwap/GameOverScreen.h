@@ -16,7 +16,7 @@ private:
 	std::string newDate;
 
 public:
-	GameOverScreen(Font& font);
+	GameOverScreen(Font& font, SoundBuffer& hoverSoundFil);
 	virtual ~GameOverScreen();
 
 	bool backToMenuPressed(RenderWindow* window);

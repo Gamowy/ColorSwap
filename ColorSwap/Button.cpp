@@ -3,6 +3,7 @@
 
 Button::Button()
 {
+	soundPlayed = false;
 }
 
 Button::~Button()
@@ -28,15 +29,28 @@ bool Button::isPressed(RenderWindow* window)
 	return false;
 }
 
+void Button::setHoverSound(SoundBuffer& hoverSoundFile)
+{
+	hoverSound.setBuffer(hoverSoundFile);
+	hoverSound.setPitch(0.7f);
+	hoverSound.setVolume(1.5f);
+}
+
 void Button::update(RenderWindow* window)
 {
 	if (mouseOverButton(window))
 	{
+		if (!soundPlayed)
+		{
+			hoverSound.play();
+			soundPlayed = true;
+		}
 		buttonText.setFillColor(COLOR_SWAP_YELLOW);
 	}
 	else
 	{
 		buttonText.setFillColor(Color::White);
+		soundPlayed = false;
 	}
 }
 

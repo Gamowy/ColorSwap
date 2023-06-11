@@ -1,7 +1,7 @@
 #include "ColorSwap.h"
 #include "MainMenu.h"
 
-MainMenu::MainMenu(Font& font)
+MainMenu::MainMenu(Font& font, SoundBuffer& hoverSoundFile)
 {
 	currentPage = MenuPage::Main;
 	Color colors[4] = { COLOR_SWAP_CYAN,COLOR_SWAP_PURPLE,COLOR_SWAP_RED,COLOR_SWAP_YELLOW };
@@ -33,6 +33,7 @@ MainMenu::MainMenu(Font& font)
 	play.buttonText.setFillColor(Color::White);
 	play.buttonText.setString("PLAY");
 	play.buttonText.setPosition(WINDOW_WIDTH / 2.f - play.buttonText.getLocalBounds().width / 2.f, WINDOW_HEIGHT / 2.f);
+	play.setHoverSound(hoverSoundFile);
 
 	//set title how to play button font, size, color and position
 	howToPlay.buttonText.setFont(font);
@@ -40,6 +41,7 @@ MainMenu::MainMenu(Font& font)
 	howToPlay.buttonText.setFillColor(Color::White);
 	howToPlay.buttonText.setString("HOW TO PLAY");
 	howToPlay.buttonText.setPosition(WINDOW_WIDTH / 2.f - howToPlay.buttonText.getLocalBounds().width / 2.f, WINDOW_HEIGHT / 2.f + 50.f);
+	howToPlay.setHoverSound(hoverSoundFile);
 
 	//set scoreboard button font, size, color and position
 	scoreboard.buttonText.setFont(font);
@@ -47,6 +49,7 @@ MainMenu::MainMenu(Font& font)
 	scoreboard.buttonText.setFillColor(Color::White);
 	scoreboard.buttonText.setString("SCOREBOARD");
 	scoreboard.buttonText.setPosition(WINDOW_WIDTH / 2.f - scoreboard.buttonText.getLocalBounds().width / 2.f, WINDOW_HEIGHT / 2.f + 100.f);
+	scoreboard.setHoverSound(hoverSoundFile);
 
 	//set exit button font, size, color and position
 	exit.buttonText.setFont(font);
@@ -54,6 +57,7 @@ MainMenu::MainMenu(Font& font)
 	exit.buttonText.setFillColor(Color::White);
 	exit.buttonText.setString("EXIT");
 	exit.buttonText.setPosition(WINDOW_WIDTH / 2.f - exit.buttonText.getLocalBounds().width / 2.f, WINDOW_HEIGHT / 2.f + 150.f);
+	exit.setHoverSound(hoverSoundFile);
 
 	//set back button font, size, color and position
 	back.buttonText.setFont(font);
@@ -61,6 +65,7 @@ MainMenu::MainMenu(Font& font)
 	back.buttonText.setFillColor(Color::White);
 	back.buttonText.setString("BACK");
 	back.buttonText.setPosition(WINDOW_WIDTH / 2.f - back.buttonText.getLocalBounds().width / 2.f, WINDOW_HEIGHT - 100.f);
+	back.setHoverSound(hoverSoundFile);
 
 	setHowToPlayMessage(font);
 
@@ -149,7 +154,8 @@ void MainMenu::setScoreboardMessage()
 	{
 		message.append(std::to_wstring(index+1)+ L". ");
 		message.append(records[index].nickname + L"\n");
-		message.append(L"Score: " + std::to_wstring(records[index].score) + L"\n\n");
+		message.append(L"Score: " + std::to_wstring(records[index].score) + L"\n");
+		message.append(L"Date: " + records[index].date + L"\n""\n");
 	}
 	scoreboardMessage.setString(message);
 }
