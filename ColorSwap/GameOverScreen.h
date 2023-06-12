@@ -24,4 +24,3 @@ public:
 	void update(RenderWindow* window);
 	void render(RenderTarget* target);
 };
-

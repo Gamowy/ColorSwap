@@ -37,4 +37,3 @@ public:
 	void render(RenderTarget* target);
 	void update(RenderWindow* window);
 };
-

@@ -22,4 +22,3 @@ public:
 	ScoresFile();
 	virtual ~ScoresFile();
 };
-
