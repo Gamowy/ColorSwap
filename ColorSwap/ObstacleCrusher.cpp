@@ -51,49 +51,33 @@ void ObstacleCrusher::update()
 	for (int index = 0; index <= 3; index+=3)
 	{
 		if (rectangles[index].getPosition().x == center.x - 12.f)
-		{
 			rectangleSpeed[0].x = 4.f;
-		};
 		if (rectangles[index].getPosition().x == center.x + 148.f)
-		{
 			rectangleSpeed[0].x = -4.f;
-		};
 		rectangles[index].move(rectangleSpeed[0]);
 	}
 	for (int index = 1; index <= 2; index++)
 	{
 		if (rectangles[index].getPosition().x == center.x + 148.f)
-		{
 			rectangleSpeed[1].x = -4.f;
-		};
 		if (rectangles[index].getPosition().x == center.x - 12.f)
-		{
 			rectangleSpeed[1].x = 4.f;
-		};
 		rectangles[index].move(rectangleSpeed[1]);
 	}
 	for (int index = 4; index <= 7; index += 3)
 	{
 		if (rectangles[index].getPosition().x == center.x - 32.f)
-		{
 			rectangleSpeed[2].x = -4.f;
-		};
 		if (rectangles[index].getPosition().x == center.x - 192.f)
-		{
 			rectangleSpeed[2].x = 4.f;
-		};
 		rectangles[index].move(rectangleSpeed[2]);
 	}
 	for (int index = 5; index <= 6; index++)
 	{
 		if (rectangles[index].getPosition().x == center.x - 192.f)
-		{
 			rectangleSpeed[3].x = 4.f;
-		};
 		if (rectangles[index].getPosition().x == center.x - 32.f)
-		{
 			rectangleSpeed[3].x = -4.f;
-		};
 		rectangles[index].move(rectangleSpeed[3]);
 	}
 
