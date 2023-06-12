@@ -1,6 +1,7 @@
 #pragma once
 #include"ColorSwap.h"
 #include "Obstacle.h"
+
 class ObstacleLine : virtual public Obstacle
 {
 private:
@@ -10,6 +11,7 @@ private:
 public:
     ObstacleLine(float yPosition, Texture& starTexture, Texture& colorSwitchTexture);
     virtual ~ObstacleLine();
+
     bool checkObstacleColision(RectangleShape player, Color playerColor);
     void update();
     void renderObstacle(RenderTarget* target);

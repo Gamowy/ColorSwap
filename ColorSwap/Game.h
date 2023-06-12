@@ -22,8 +22,8 @@ class Game
 {
 private:
 	//Window variables
-	RenderWindow* window;
 	VideoMode videoMode;
+	RenderWindow* window;
 	View* view;
 	PointCounter* pointCounter;
 	MainMenu* menu;
@@ -31,11 +31,11 @@ private:
 
 	//Game variables
 	unsigned int score;
-	Event ev;
-	GameState gameStatus;
 	Player* player;
 	std::vector<Obstacle*> obstacles;
-
+	Event ev;
+	GameState gameStatus;
+	
 	//Files to load
 	ScoresFile* leaderboard;
 	Image windowIcon;
@@ -45,25 +45,24 @@ private:
 	SoundBuffer popSound;
 	SoundBuffer getPointSoundFile;
 	SoundBuffer gameOverSoundFile;
-	Music backgroundMusic;
-
 	Sound getPointSound;
 	Sound gameOverSound;
+	Music backgroundMusic;
 
 	//Private methods
 	void initVariables();
 	void initWindow();
+	void loadFiles();
+	void initErrorWindow(std::string error);
 	void initNewGame();
 	void gameOver();
-	void initErrorWindow(std::string error);
-	void loadFiles();
 	void pollEvents();
 	void moveView();
 	void checkColisions();
+	void checkOutOfMapCondition();
 	void obstacleGenerator();
 	void createObstacle(float yPosition);
 	void obstacleRemover();
-	void checkOutOfMapCondition();
 	void renderObstacles();
 	void updateObstacles();
 

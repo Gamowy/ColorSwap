@@ -2,6 +2,8 @@
 #ifndef RECTANGULAR_BOUNDARY_COLLISION_HPP
 #define RECTANGULAR_BOUNDARY_COLLISION_HPP
 
+//Code from: https://github.com/Hapaxia/SfmlSnippets/blob/master/RectangularBoundaryCollision/RectangularBoundaryCollision.hpp?fbclid=IwAR3ELHYkf7X7sdXcIsPNlzd0JjVlYvo7Ypts6Wjrl0RbtOTa6ACvkf2U8ZM
+
 #include "ColorSwap.h"
 #include <array>
 

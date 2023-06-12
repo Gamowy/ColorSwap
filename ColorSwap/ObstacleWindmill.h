@@ -14,6 +14,7 @@ private:
 public:
     ObstacleWindmill(float yPosition, Texture& starTexture, Texture& colorSwitchTexture);
     virtual ~ObstacleWindmill();
+
     bool checkObstacleColision(RectangleShape player, Color playerColor);
     void update();
     void renderObstacle(RenderTarget* target);

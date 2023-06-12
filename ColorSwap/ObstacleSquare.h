@@ -11,6 +11,7 @@ private:
 public:
     ObstacleSquare(float yPosition, Texture& starTexture, Texture& colorSwitchTexture);
     virtual ~ObstacleSquare();
+
     bool checkObstacleColision(RectangleShape player, Color playerColor);
     void update();
     void renderObstacle(RenderTarget* target);

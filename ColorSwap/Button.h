@@ -5,10 +5,13 @@ using namespace sf;
 
 class Button
 {
-public:
-	bool soundPlayed;
-	Text buttonText;
+private:
 	Sound hoverSound;
+	bool soundPlayed;
+
+public:
+	Text buttonText;
+
 	Button();
 	virtual ~Button();
 	bool mouseOverButton(RenderWindow* window);

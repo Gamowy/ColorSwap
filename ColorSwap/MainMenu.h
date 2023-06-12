@@ -25,6 +25,7 @@ private:
 public:
 	MainMenu(Font &font, SoundBuffer& hoverSoundFile);
 	virtual ~MainMenu();
+
 	bool playButtonPressed(RenderWindow* window);
 	void howToPlayButtonPressed(RenderWindow* window);
 	void scoreboardButtonPressed(RenderWindow* window);
