@@ -7,7 +7,7 @@ FileRecord ScoresFile::readRecord(int recordIndex)
 	FileRecord record;
 	std::wstring scoreBuffer;
 
-	file.open("Assets/data.dat", std::ios::in);
+	file.open("Content/data.dat", std::ios::in);
 	file.seekg(0);
 	for (int i = 0; i <= recordIndex; i++) 
 	{
@@ -31,7 +31,7 @@ FileRecord ScoresFile::readRecord(int recordIndex)
 //encrypt and save record to file
 void ScoresFile::save(FileRecord records[3])
 {
-	file.open("Assets/data.dat", std::ios::out);
+	file.open("Content/data.dat", std::ios::out);
 	file.seekg(0);
 	for (int i = 0; i < 3; i++)
 	{
@@ -45,10 +45,10 @@ void ScoresFile::save(FileRecord records[3])
 ScoresFile::ScoresFile()
 {
 	//open or create .dat file
-	file.open("Assets/data.dat");
+	file.open("Content/data.dat");
 	if (!file.is_open())
 	{
-		file.open("Assets/data.dat", std::ios::out);
+		file.open("Content/data.dat", std::ios::out);
 		for (int i = 0; i < 3; i++)
 		{
 			file << L"c" << std::endl;

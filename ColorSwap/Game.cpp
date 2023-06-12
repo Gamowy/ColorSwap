@@ -32,11 +32,20 @@ void Game::initWindow()
 	view = new View();
 	view->setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	//create game over screen
-	gameOverScreen = new GameOverScreen(font, popSound);
+	try
+	{
+		//create game over screen
+		gameOverScreen = new GameOverScreen(font, popSound);
 
-	//create menu
-	menu = new MainMenu(font, popSound);
+		//create menu
+		menu = new MainMenu(font, popSound);
+	}
+	catch (std::exception e)
+	{
+		gameStatus = GameState::Error;
+		initErrorWindow("Unexpected error!");
+		window->close();
+	}
 }
 
 void Game::initNewGame()
@@ -100,14 +109,14 @@ void Game::loadFiles()
 	//check if files loaded correctly
 	try {
 		if (!(
-			windowIcon.loadFromFile("Assets/Images/icon.png") &&
-			starTexture.loadFromFile("Assets/Images/star.png") &&
-			colorSwitchTexture.loadFromFile("Assets/Images/colorswitch.png") &&
-			font.loadFromFile("Assets/Fonts/Exo-Regular.ttf") &&
-			popSound.loadFromFile("Assets/Sounds/jump.ogg")&&
-			getPointSoundFile.loadFromFile("Assets/Sounds/getPoint.ogg")&&
-			gameOverSoundFile.loadFromFile("Assets/Sounds/gameOver.ogg") &&
-			backgroundMusic.openFromFile("Assets/Sounds/background.ogg")
+			windowIcon.loadFromFile("Content/Images/icon.png") &&
+			starTexture.loadFromFile("Content/Images/star.png") &&
+			colorSwitchTexture.loadFromFile("Content/Images/colorswitch.png") &&
+			font.loadFromFile("Content/Fonts/Exo-Regular.ttf") &&
+			popSound.loadFromFile("Content/Sounds/jump.ogg")&&
+			getPointSoundFile.loadFromFile("Content/Sounds/getPoint.ogg")&&
+			gameOverSoundFile.loadFromFile("Content/Sounds/gameOver.ogg") &&
+			backgroundMusic.openFromFile("Content/Sounds/background.ogg")
 			))
 			throw std::runtime_error(output.str());
 
@@ -274,7 +283,8 @@ const bool Game::running() const
 
 void Game::update()
 {
-	try {
+	try 
+	{
 		pollEvents();
 		switch (gameStatus)
 		{
