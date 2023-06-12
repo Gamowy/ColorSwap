@@ -204,6 +204,9 @@ void Game::createObstacle(float yPosition)
 		case 3:
 			obstacles.push_back(new ObstacleLine(yPosition, starTexture, colorSwitchTexture));
 			break;
+		case 4:
+			obstacles.push_back(new ObstacleCrusher(yPosition, starTexture, colorSwitchTexture));
+			break;
 
 	}
 }
