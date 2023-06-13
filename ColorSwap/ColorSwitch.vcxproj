@@ -152,6 +152,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ObstacleCrusher.cpp" />
+    <ClCompile Include="ObstacleElevator.cpp" />
     <ClCompile Include="ObstacleLine.cpp" />
     <ClCompile Include="ObstacleRingOfRectangles.cpp" />
     <ClCompile Include="ObstacleSquare.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstacleCrusher.h" />
+    <ClInclude Include="ObstacleElevator.h" />
     <ClInclude Include="ObstacleLine.h" />
     <ClInclude Include="ObstacleRingOfRectangles.h" />
     <ClInclude Include="ObstacleSquare.h" />

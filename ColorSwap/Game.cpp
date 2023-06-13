@@ -186,7 +186,7 @@ void Game::createObstacle(float yPosition)
 {
 	//create random obstacle when view moves
 	int obstacleIndex = obstacleRandomPick(gen);
-	switch (obstacleIndex) 
+	switch (obstacleIndex)
 	{
 		//windmill
 		case 0:
@@ -204,10 +204,14 @@ void Game::createObstacle(float yPosition)
 		case 3:
 			obstacles.push_back(new ObstacleLine(yPosition, starTexture, colorSwitchTexture));
 			break;
+		//crusher
 		case 4:
 			obstacles.push_back(new ObstacleCrusher(yPosition, starTexture, colorSwitchTexture));
 			break;
-
+		//elevator
+		case 5:
+			obstacles.push_back(new ObstacleElevator(yPosition, starTexture, colorSwitchTexture));
+			break;
 	}
 }
 
