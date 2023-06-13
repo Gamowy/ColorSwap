@@ -8,6 +8,8 @@
 #include "ObstacleRingOfRectangles.h"
 #include "ObstacleSquare.h"
 #include "ObstacleLine.h"
+#include "ObstacleCrusher.h"
+#include "ObstacleElevator.h"
 #include "PointCounter.h"
 #include "ScoresFile.h"
 
@@ -16,7 +18,7 @@ using namespace sf;
 //Possible game states
 enum GameState { Menu, Play, GameOver, Error };
 //Integer distribution for random obstacle generation
-static std::uniform_int_distribution<int> obstacleRandomPick(0, 3);
+static std::uniform_int_distribution<int> obstacleRandomPick(0, 5);
 
 class Game
 {
