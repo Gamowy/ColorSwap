@@ -5,7 +5,7 @@
 //Integer distribution for windmill variation
 static std::uniform_int_distribution<int> variation(0, 2);
 
-class ObstacleWindmill : virtual public Obstacle
+class ObstacleWindmill : public Obstacle
 {
 private:
     int rectCount;

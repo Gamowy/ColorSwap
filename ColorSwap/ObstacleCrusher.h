@@ -1,7 +1,7 @@
 #pragma once
 #include"ColorSwap.h"
 #include "Obstacle.h"
-class ObstacleCrusher : virtual public Obstacle
+class ObstacleCrusher : public Obstacle
 {
 private:
     Vector2f center;

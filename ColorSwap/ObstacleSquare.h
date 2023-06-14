@@ -2,7 +2,7 @@
 #include "ColorSwap.h"
 #include "Obstacle.h"
 
-class ObstacleSquare : virtual public Obstacle
+class ObstacleSquare : public Obstacle
 {
 private:
     Vector2f center;

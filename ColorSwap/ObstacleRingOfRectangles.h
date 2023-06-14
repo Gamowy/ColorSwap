@@ -5,7 +5,7 @@
 //Integer distribution for ring variation
 static std::uniform_int_distribution<int> obstacleRingVariation(0, 1);
 
-class ObstacleRingOfRectangles : virtual public Obstacle
+class ObstacleRingOfRectangles : public Obstacle
 {
 private:
     int ringVariation;

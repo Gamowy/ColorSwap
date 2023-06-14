@@ -19,8 +19,8 @@ public:
 	float getYPosition();
 	bool checkStarColision(FloatRect playerBounds);
 	bool checkSwitchColision(FloatRect playerBounds);
-	virtual bool checkObstacleColision(RectangleShape player, Color playerColor);
-	virtual void update();
-	virtual void renderObstacle(RenderTarget* target);
+	virtual bool checkObstacleColision(RectangleShape player, Color playerColor) = 0;
+	virtual void update() = 0;
+	virtual void renderObstacle(RenderTarget* target) = 0;
 	void render(RenderTarget* target);
 };
