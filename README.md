@@ -1,5 +1,5 @@
 # ColorSwap
-Clone of a popular android game for Windows. Made using C++ & SFML.
+Clone of a popular android game for Windows. Written in C++ with SFML library.
 
 ## Run the game
 To run this game you can either:
